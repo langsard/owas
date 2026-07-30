@@ -1,0 +1,424 @@
+/* ========================================================== */
+/* FONT */
+/* ========================================================== */
+
+@font-face {
+
+    font-family: "Sarabun";
+
+    src: url("fonts/Sarabun-Regular.ttf") format("truetype");
+
+    font-weight: normal;
+
+    font-style: normal;
+
+}
+
+/* ========================================================== */
+/* RESET */
+/* ========================================================== */
+
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+body {
+
+    font-family: "Sarabun", sans-serif;
+
+    background: white;
+
+    color: black;
+
+    min-height: 100vh;
+
+}
+
+/* ========================================================== */
+/* HEADER */
+/* ========================================================== */
+
+.header {
+
+    text-align: center;
+
+    border: 4px solid black;
+
+    border-bottom: none;
+
+    padding: 24px 20px 14px;
+
+}
+
+.header h1 {
+
+    font-size: 3rem;
+
+    font-weight: normal;
+
+    margin-bottom: 8px;
+
+}
+
+.header p {
+
+    font-size: 2rem;
+
+    font-weight: normal;
+
+}
+
+/* ========================================================== */
+/* MAIN */
+/* ========================================================== */
+
+.mainLayout {
+
+    display: grid;
+
+    grid-template-columns: 30% 46% 24%;
+
+    min-height: calc(100vh - 170px);
+
+    border: 4px solid black;
+
+}
+
+/* ========================================================== */
+/* PANELS */
+/* ========================================================== */
+
+.leftPanel,
+.centerPanel,
+.rightPanel {
+
+    padding: 28px;
+
+}
+
+.leftPanel,
+.centerPanel {
+
+    border-right: 4px solid black;
+
+}
+
+/* ========================================================== */
+/* SECTION TITLE */
+/* ========================================================== */
+
+.sectionTitle {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 24px;
+
+}
+
+.sectionTitle h2 {
+
+    font-size: 2.6rem;
+
+    font-weight: normal;
+
+}
+
+/* ========================================================== */
+/* BUTTONS */
+/* ========================================================== */
+
+button {
+
+    width: 130px;
+
+    height: 70px;
+
+    background: white;
+
+    border: 2px solid black;
+
+    font-family: inherit;
+
+    font-size: 1.2rem;
+
+    cursor: pointer;
+
+}
+
+button:hover {
+
+    background: #eeeeee;
+
+}
+
+/* ========================================================== */
+/* THUMBNAIL */
+/* ========================================================== */
+
+.thumbnailBox {
+
+    height: 260px;
+
+    border: 4px solid black;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 2rem;
+
+    margin-bottom: 32px;
+
+}
+
+/* ========================================================== */
+/* FILE INFO */
+/* ========================================================== */
+
+.fileInformation {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 24px;
+
+    font-size: 1.9rem;
+
+}
+
+/* ========================================================== */
+/* PREVIEW */
+/* ========================================================== */
+
+.previewBox {
+
+    position: relative;
+
+    border: 4px solid black;
+
+    aspect-ratio: 16 / 9;
+
+    margin-bottom: 28px;
+
+    overflow: hidden;
+
+}
+
+.previewBox canvas {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+}
+
+/* ========================================================== */
+/* CONFIDENCE */
+/* ========================================================== */
+
+.confidenceBox {
+
+    position: absolute;
+
+    right: 18px;
+
+    bottom: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    border: 2px solid black;
+
+    padding: 10px;
+
+    background: white;
+
+    font-size: 1.2rem;
+
+}
+
+.confidenceBox span {
+
+    width: 40px;
+
+    height: 40px;
+
+    border: 1px solid black;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+/* ========================================================== */
+/* MEASUREMENTS */
+/* ========================================================== */
+
+.measurementGrid {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 24px;
+
+}
+
+.measurementCard {
+
+    border: 1px solid black;
+
+    padding: 18px;
+
+}
+
+.measurementCard h3 {
+
+    font-size: 2rem;
+
+    font-weight: normal;
+
+    margin-bottom: 28px;
+
+}
+
+.measurementRow {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 18px;
+
+    font-size: 1.7rem;
+
+}
+
+.valueBox {
+
+    width: 42px;
+
+    height: 42px;
+
+    border: 1px solid black;
+
+    display: inline-block;
+
+}
+
+/* ========================================================== */
+/* RIGHT PANEL */
+/* ========================================================== */
+
+.loadSection {
+
+    margin-bottom: 56px;
+
+}
+
+.loadSection h2,
+.resultSection h2 {
+
+    font-size: 2.6rem;
+
+    font-weight: normal;
+
+    margin-bottom: 28px;
+
+}
+
+.loadSection label {
+
+    display: block;
+
+    margin-bottom: 34px;
+
+    font-size: 2rem;
+
+}
+
+.loadSection input {
+
+    margin-right: 18px;
+
+    transform: scale(1.6);
+
+}
+
+.resultSection {
+
+    font-size: 2rem;
+
+    margin-bottom: 40px;
+
+}
+
+.resultSection p {
+
+    margin-bottom: 22px;
+
+}
+
+/* ========================================================== */
+/* EXPORT */
+/* ========================================================== */
+
+.exportButton {
+
+    display: block;
+
+    margin: 0 auto;
+
+}
+
+/* ========================================================== */
+/* RESPONSIVE */
+/* ========================================================== */
+
+@media (max-width: 1200px) {
+
+    .mainLayout {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .leftPanel,
+    .centerPanel {
+
+        border-right: none;
+
+        border-bottom: 4px solid black;
+
+    }
+
+    .measurementGrid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
