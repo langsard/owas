@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Sit Tight</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css">
+
+</head>
+
+<body>
+
+    <!-- ====================================================== -->
+    <!-- HEADER -->
+    <!-- ====================================================== -->
+
+    <header class="header">
+
+        <h1>Sit Tight</h1>
+
+        <p>OWAS Assessment by Movenet CNN</p>
+
+    </header>
+
+    <!-- ====================================================== -->
+    <!-- MAIN -->
+    <!-- ====================================================== -->
+
+    <main class="mainLayout">
+
+        <!-- ================================================== -->
+        <!-- LEFT -->
+        <!-- ================================================== -->
+
+        <aside class="leftPanel">
+
+            <section class="uploadSection">
+
+                <div class="sectionTitle">
+
+                    <h2>1. Add photo</h2>
+
+                    <button type="button">
+
+                        Choose file
+
+                    </button>
+
+                </div>
+
+                <div class="thumbnailBox">
+
+                    Thumbnail review
+
+                </div>
+
+            </section>
+
+            <section class="fileInformation">
+
+                <p>File name</p>
+
+                <p>Resolution</p>
+
+                <p>Size</p>
+
+                <p>Date/time</p>
+
+                <p>Meta data</p>
+
+            </section>
+
+        </aside>
+
+        <!-- ================================================== -->
+        <!-- CENTER -->
+        <!-- ================================================== -->
+
+        <section class="centerPanel">
+
+            <div class="sectionTitle">
+
+                <h2>2. Pose Estimate</h2>
+
+                <button type="button">
+
+                    Edit
+
+                </button>
+
+            </div>
+
+            <div class="previewBox">
+
+                <canvas
+                    width="1280"
+                    height="720">
+
+                </canvas>
+
+                <div class="confidenceBox">
+
+                    Avg conf.
+
+                    <span>--</span>
+
+                </div>
+
+            </div>
+
+            <div class="measurementGrid">
+
+                <!-- BACK -->
+
+                <section class="measurementCard">
+
+                    <h3>Back</h3>
+
+                    <div class="measurementRow">
+
+                        <span>Flexion</span>
+
+                        <span class="valueBox"></span>
+
+                    </div>
+
+                    <div class="measurementRow">
+
+                        <span>Twisted</span>
+
+                        <span class="valueBox"></span>
+
+                    </div>
+
+                </section>
+
+                <!-- ARMS -->
+
+                <section class="measurementCard">
+
+                    <h3>Arms (L/R)</h3>
+
+                    <div class="measurementRow">
+
+                        <span>Shoulder</span>
+
+                        <span class="valueBox"></span>
+
+                    </div>
+
+                    <div class="measurementRow">
+
+                        <span>Elbow</span>
+
+                        <span class="valueBox"></span>
+
+                    </div>
+
+                </section>
+
+                <!-- LEGS -->
+
+                <section class="measurementCard">
+
+                    <h3>Legs (L/R)</h3>
+
+                    <div class="measurementRow">
+
+                        <span>Hip</span>
+
+                        <span class="valueBox"></span>
+
+                    </div>
+
+                    <div class="measurementRow">
+
+                        <span>Knee</span>
+
+                        <span class="valueBox"></span>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+        <!-- ================================================== -->
+        <!-- RIGHT -->
+        <!-- ================================================== -->
+
+        <aside class="rightPanel">
+
+            <section class="loadSection">
+
+                <h2>3. Select load</h2>
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="load">
+
+                    1 (<10kg)
+
+                </label>
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="load">
+
+                    2 (10-20kg)
+
+                </label>
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="load">
+
+                    3 (>20kg)
+
+                </label>
+
+            </section>
+
+            <section class="resultSection">
+
+                <h2>4. Get result</h2>
+
+                <p>OWAS score 1231</p>
+
+                <p>Risk category 1</p>
+
+            </section>
+
+            <button
+                class="exportButton"
+                type="button">
+
+                Export
+
+            </button>
+
+        </aside>
+
+    </main>
+
+</body>
+
+</html>
