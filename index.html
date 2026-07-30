@@ -27,7 +27,7 @@
 
         <h1>Sit Tight</h1>
 
-        <p>OWAS Assessment by Movenet CNN</p>
+        <p>OWAS Assessment by MoveNet CNN</p>
 
     </header>
 
@@ -38,51 +38,117 @@
     <main class="mainLayout">
 
         <!-- ================================================== -->
-        <!-- LEFT -->
+        <!-- LEFT PANEL -->
         <!-- ================================================== -->
 
         <aside class="leftPanel">
+
+            <!-- Upload -->
 
             <section class="uploadSection">
 
                 <div class="sectionTitle">
 
-                    <h2>1. Add photo</h2>
+                    <h2>1. Add Photo</h2>
 
-                    <button type="button">
+                    <label
+                        class="chooseFileButton"
+                        for="photoInput">
 
-                        Choose file
+                        Choose Photo
 
-                    </button>
+                    </label>
+
+                    <input
+                        id="photoInput"
+                        type="file"
+                        accept="image/*"
+                        hidden>
 
                 </div>
 
+                <!-- Thumbnail -->
+
                 <div class="thumbnailBox">
 
-                    Thumbnail review
+                    <img
+                        id="thumbnail"
+                        alt="Thumbnail Preview">
 
                 </div>
 
             </section>
 
+            <!-- File Information -->
+
             <section class="fileInformation">
 
-                <p>File name</p>
+                <p>
 
-                <p>Resolution</p>
+                    <strong>File name:</strong>
 
-                <p>Size</p>
+                    <span id="fileName">
 
-                <p>Date/time</p>
+                        -
 
-                <p>Meta data</p>
+                    </span>
+
+                </p>
+
+                <p>
+
+                    <strong>Resolution:</strong>
+
+                    <span id="resolution">
+
+                        -
+
+                    </span>
+
+                </p>
+
+                <p>
+
+                    <strong>Size:</strong>
+
+                    <span id="fileSize">
+
+                        -
+
+                    </span>
+
+                </p>
+
+                <p>
+
+                    <strong>Date:</strong>
+
+                    <span id="fileDate">
+
+                        -
+
+                    </span>
+
+                </p>
+
+                <p>
+
+                    <strong>Type:</strong>
+
+                    <span id="fileType">
+
+                        -
+
+                    </span>
+
+                </p>
 
             </section>
 
         </aside>
 
         <!-- ================================================== -->
-        <!-- CENTER -->
+        <!-- CENTER PANEL -->
         <!-- ================================================== -->
 
         <section class="centerPanel">
@@ -91,7 +157,8 @@
 
                 <h2>2. Pose Estimate</h2>
 
-                <button type="button">
+                <button
+                    type="button">
 
                     Edit
 
@@ -102,6 +169,7 @@
             <div class="previewBox">
 
                 <canvas
+                    id="poseCanvas"
                     width="1280"
                     height="720">
 
@@ -109,9 +177,13 @@
 
                 <div class="confidenceBox">
 
-                    Avg conf.
+                    Avg. Conf.
 
-                    <span>--</span>
+                    <span id="avgConfidence">
+
+                        --
+
+                    </span>
 
                 </div>
 
@@ -129,7 +201,11 @@
 
                         <span>Flexion</span>
 
-                        <span class="valueBox"></span>
+                        <span
+                            class="valueBox"
+                            id="backFlexion">
+
+                        </span>
 
                     </div>
 
@@ -137,7 +213,11 @@
 
                         <span>Twisted</span>
 
-                        <span class="valueBox"></span>
+                        <span
+                            class="valueBox"
+                            id="backTwisted">
+
+                        </span>
 
                     </div>
 
@@ -153,7 +233,11 @@
 
                         <span>Shoulder</span>
 
-                        <span class="valueBox"></span>
+                        <span
+                            class="valueBox"
+                            id="shoulderAngle">
+
+                        </span>
 
                     </div>
 
@@ -161,7 +245,11 @@
 
                         <span>Elbow</span>
 
-                        <span class="valueBox"></span>
+                        <span
+                            class="valueBox"
+                            id="elbowAngle">
+
+                        </span>
 
                     </div>
 
@@ -177,7 +265,11 @@
 
                         <span>Hip</span>
 
-                        <span class="valueBox"></span>
+                        <span
+                            class="valueBox"
+                            id="hipAngle">
+
+                        </span>
 
                     </div>
 
@@ -185,7 +277,11 @@
 
                         <span>Knee</span>
 
-                        <span class="valueBox"></span>
+                        <span
+                            class="valueBox"
+                            id="kneeAngle">
+
+                        </span>
 
                     </div>
 
@@ -196,20 +292,24 @@
         </section>
 
         <!-- ================================================== -->
-        <!-- RIGHT -->
+        <!-- RIGHT PANEL -->
         <!-- ================================================== -->
 
         <aside class="rightPanel">
 
+            <!-- LOAD -->
+
             <section class="loadSection">
 
-                <h2>3. Select load</h2>
+                <h2>3. Select Load</h2>
 
                 <label>
 
                     <input
                         type="radio"
-                        name="load">
+                        name="load"
+                        value="1"
+                        checked>
 
                     1 (<10kg)
 
@@ -219,7 +319,8 @@
 
                     <input
                         type="radio"
-                        name="load">
+                        name="load"
+                        value="2">
 
                     2 (10-20kg)
 
@@ -229,7 +330,8 @@
 
                     <input
                         type="radio"
-                        name="load">
+                        name="load"
+                        value="3">
 
                     3 (>20kg)
 
@@ -237,15 +339,39 @@
 
             </section>
 
+            <!-- RESULT -->
+
             <section class="resultSection">
 
-                <h2>4. Get result</h2>
+                <h2>4. Get Result</h2>
 
-                <p>OWAS score 1231</p>
+                <p>
 
-                <p>Risk category 1</p>
+                    <strong>OWAS Score:</strong>
+
+                    <span id="owasScore">
+
+                        1231
+
+                    </span>
+
+                </p>
+
+                <p>
+
+                    <strong>Risk Category:</strong>
+
+                    <span id="riskCategory">
+
+                        1
+
+                    </span>
+
+                </p>
 
             </section>
+
+            <!-- EXPORT -->
 
             <button
                 class="exportButton"
@@ -258,6 +384,15 @@
         </aside>
 
     </main>
+
+    <!-- ====================================================== -->
+    <!-- APPLICATION -->
+    <!-- ====================================================== -->
+
+    <script
+        src="js/app.js">
+
+    </script>
 
 </body>
 
