@@ -1,5 +1,5 @@
 /* ========================================================== */
-/* FONT */
+/* FONT                                                       */
 /* ========================================================== */
 
 @font-face {
@@ -8,14 +8,30 @@
 
     src: url("fonts/Sarabun-Regular.ttf") format("truetype");
 
-    font-weight: normal;
+    font-weight: 400;
 
     font-style: normal;
+
+    font-display: swap;
+
+}
+
+@font-face {
+
+    font-family: "Sarabun";
+
+    src: url("fonts/Sarabun-Bold.ttf") format("truetype");
+
+    font-weight: 700;
+
+    font-style: normal;
+
+    font-display: swap;
 
 }
 
 /* ========================================================== */
-/* RESET */
+/* RESET                                                      */
 /* ========================================================== */
 
 * {
@@ -28,31 +44,37 @@
 
 }
 
+html {
+
+    font-size: 16px;
+
+}
+
 body {
 
     font-family: "Sarabun", sans-serif;
 
-    background: white;
+    background: #ffffff;
 
-    color: black;
+    color: #000000;
 
     min-height: 100vh;
 
 }
 
 /* ========================================================== */
-/* HEADER */
+/* HEADER                                                     */
 /* ========================================================== */
 
 .header {
 
     text-align: center;
 
-    border: 4px solid black;
+    padding: 24px;
+
+    border: 3px solid black;
 
     border-bottom: none;
-
-    padding: 24px 20px 14px;
 
 }
 
@@ -60,57 +82,53 @@ body {
 
     font-size: 3rem;
 
-    font-weight: normal;
-
-    margin-bottom: 8px;
+    font-weight: 700;
 
 }
 
 .header p {
 
-    font-size: 2rem;
+    margin-top: 8px;
 
-    font-weight: normal;
+    font-size: 1.5rem;
+
+    font-weight: 400;
 
 }
 
 /* ========================================================== */
-/* MAIN */
+/* MAIN LAYOUT                                                */
 /* ========================================================== */
 
 .mainLayout {
 
     display: grid;
 
-    grid-template-columns: 30% 46% 24%;
+    grid-template-columns: 26% 49% 25%;
 
-    min-height: calc(100vh - 170px);
+    min-height: calc(100vh - 150px);
 
-    border: 4px solid black;
+    border: 3px solid black;
 
 }
-
-/* ========================================================== */
-/* PANELS */
-/* ========================================================== */
 
 .leftPanel,
 .centerPanel,
 .rightPanel {
 
-    padding: 28px;
+    padding: 24px;
 
 }
 
 .leftPanel,
 .centerPanel {
 
-    border-right: 4px solid black;
+    border-right: 3px solid black;
 
 }
 
 /* ========================================================== */
-/* SECTION TITLE */
+/* SECTION HEADERS                                            */
 /* ========================================================== */
 
 .sectionTitle {
@@ -121,37 +139,37 @@ body {
 
     align-items: center;
 
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 
 }
 
 .sectionTitle h2 {
 
-    font-size: 2.6rem;
+    font-size: 1.75rem;
 
-    font-weight: normal;
+    font-weight: 700;
 
 }
 
 /* ========================================================== */
-/* BUTTONS */
+/* BUTTONS                                                    */
 /* ========================================================== */
 
 button {
 
-    width: 130px;
+    padding: 10px 18px;
 
-    height: 70px;
+    font-family: inherit;
+
+    font-size: 1rem;
 
     background: white;
 
     border: 2px solid black;
 
-    font-family: inherit;
-
-    font-size: 1.2rem;
-
     cursor: pointer;
+
+    transition: 0.2s;
 
 }
 
@@ -162,14 +180,14 @@ button:hover {
 }
 
 /* ========================================================== */
-/* THUMBNAIL */
+/* THUMBNAIL                                                  */
 /* ========================================================== */
 
 .thumbnailBox {
 
-    height: 260px;
+    height: 220px;
 
-    border: 4px solid black;
+    border: 2px solid black;
 
     display: flex;
 
@@ -177,14 +195,16 @@ button:hover {
 
     align-items: center;
 
-    font-size: 2rem;
+    margin-bottom: 24px;
 
-    margin-bottom: 32px;
+    font-size: 1.2rem;
+
+    color: #666666;
 
 }
 
 /* ========================================================== */
-/* FILE INFO */
+/* FILE INFO                                                  */
 /* ========================================================== */
 
 .fileInformation {
@@ -193,27 +213,35 @@ button:hover {
 
     flex-direction: column;
 
-    gap: 24px;
+    gap: 18px;
 
-    font-size: 1.9rem;
+    font-size: 1rem;
+
+}
+
+.fileInformation p {
+
+    border-bottom: 1px solid #cccccc;
+
+    padding-bottom: 6px;
 
 }
 
 /* ========================================================== */
-/* PREVIEW */
+/* PREVIEW                                                    */
 /* ========================================================== */
 
 .previewBox {
 
     position: relative;
 
-    border: 4px solid black;
+    border: 2px solid black;
 
     aspect-ratio: 16 / 9;
 
-    margin-bottom: 28px;
-
     overflow: hidden;
+
+    margin-bottom: 24px;
 
 }
 
@@ -228,51 +256,51 @@ button:hover {
 }
 
 /* ========================================================== */
-/* CONFIDENCE */
+/* CONFIDENCE BOX                                             */
 /* ========================================================== */
 
 .confidenceBox {
 
     position: absolute;
 
-    right: 18px;
+    right: 16px;
 
-    bottom: 18px;
+    bottom: 16px;
+
+    background: white;
+
+    border: 2px solid black;
+
+    padding: 10px 14px;
+
+    font-size: 0.95rem;
 
     display: flex;
 
     align-items: center;
 
-    gap: 10px;
-
-    border: 2px solid black;
-
-    padding: 10px;
-
-    background: white;
-
-    font-size: 1.2rem;
+    gap: 12px;
 
 }
 
 .confidenceBox span {
 
-    width: 40px;
+    display: inline-flex;
 
-    height: 40px;
-
-    border: 1px solid black;
-
-    display: flex;
+    justify-content: center;
 
     align-items: center;
 
-    justify-content: center;
+    width: 36px;
+
+    height: 36px;
+
+    border: 1px solid black;
 
 }
 
 /* ========================================================== */
-/* MEASUREMENTS */
+/* MEASUREMENTS                                               */
 /* ========================================================== */
 
 .measurementGrid {
@@ -281,25 +309,25 @@ button:hover {
 
     grid-template-columns: repeat(3, 1fr);
 
-    gap: 24px;
+    gap: 20px;
 
 }
 
 .measurementCard {
 
-    border: 1px solid black;
+    border: 2px solid black;
 
-    padding: 18px;
+    padding: 16px;
 
 }
 
 .measurementCard h3 {
 
-    font-size: 2rem;
+    font-size: 1.3rem;
 
-    font-weight: normal;
+    font-weight: 700;
 
-    margin-bottom: 28px;
+    margin-bottom: 20px;
 
 }
 
@@ -311,42 +339,38 @@ button:hover {
 
     align-items: center;
 
-    margin-bottom: 18px;
-
-    font-size: 1.7rem;
+    margin-bottom: 14px;
 
 }
 
 .valueBox {
 
-    width: 42px;
+    width: 34px;
 
-    height: 42px;
+    height: 34px;
 
     border: 1px solid black;
-
-    display: inline-block;
 
 }
 
 /* ========================================================== */
-/* RIGHT PANEL */
+/* RIGHT PANEL                                                */
 /* ========================================================== */
 
 .loadSection {
 
-    margin-bottom: 56px;
+    margin-bottom: 40px;
 
 }
 
 .loadSection h2,
 .resultSection h2 {
 
-    font-size: 2.6rem;
+    font-size: 1.75rem;
 
-    font-weight: normal;
+    font-weight: 700;
 
-    margin-bottom: 28px;
+    margin-bottom: 20px;
 
 }
 
@@ -354,48 +378,40 @@ button:hover {
 
     display: block;
 
-    margin-bottom: 34px;
+    margin-bottom: 18px;
 
-    font-size: 2rem;
+    cursor: pointer;
 
 }
 
 .loadSection input {
 
-    margin-right: 18px;
-
-    transform: scale(1.6);
+    margin-right: 10px;
 
 }
 
 .resultSection {
 
-    font-size: 2rem;
-
     margin-bottom: 40px;
 
-}
-
-.resultSection p {
-
-    margin-bottom: 22px;
+    line-height: 2;
 
 }
-
-/* ========================================================== */
-/* EXPORT */
-/* ========================================================== */
 
 .exportButton {
 
-    display: block;
+    width: 100%;
 
-    margin: 0 auto;
+    padding: 14px;
+
+    font-size: 1.1rem;
+
+    font-weight: 700;
 
 }
 
 /* ========================================================== */
-/* RESPONSIVE */
+/* RESPONSIVE                                                 */
 /* ========================================================== */
 
 @media (max-width: 1200px) {
@@ -411,13 +427,39 @@ button:hover {
 
         border-right: none;
 
-        border-bottom: 4px solid black;
+        border-bottom: 3px solid black;
 
     }
 
     .measurementGrid {
 
         grid-template-columns: 1fr;
+
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .sectionTitle {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 12px;
+
+    }
+
+    .header h1 {
+
+        font-size: 2.2rem;
+
+    }
+
+    .header p {
+
+        font-size: 1.2rem;
 
     }
 
