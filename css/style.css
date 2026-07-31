@@ -1,6 +1,8 @@
 /* ========================================================== */
-/* SIT TIGHT STYLE                                            */
+/* SIT TIGHT                                                  */
+/* style.css                                                  */
 /* ========================================================== */
+
 
 
 /* ========================================================== */
@@ -22,6 +24,7 @@
 }
 
 
+
 @font-face {
 
     font-family: "Sarabun";
@@ -35,6 +38,29 @@
     font-display: swap;
 
 }
+
+
+
+/* ========================================================== */
+/* VARIABLES                                                  */
+/* ========================================================== */
+
+:root {
+
+    --border-color: #000000;
+
+    --border-width: 2px;
+
+    --radius: 4px;
+
+    --panel-gap: 20px;
+
+    --padding: 20px;
+
+    --header-height: 90px;
+
+}
+
 
 
 /* ========================================================== */
@@ -52,28 +78,49 @@
 }
 
 
-html {
+
+/* ========================================================== */
+/* HTML / BODY                                                */
+/* ========================================================== */
+
+html,
+body {
 
     width: 100%;
 
     height: 100%;
 
+    overflow: hidden;
+
 }
+
 
 
 body {
 
-    width: 100%;
-
-    min-height: 100%;
-
-    background: white;
-
-    color: black;
-
     font-family: "Sarabun", sans-serif;
 
-    overflow: auto;
+    background: #ffffff;
+
+    color: #000000;
+
+}
+
+
+
+/* ========================================================== */
+/* APPLICATION                                                */
+/* ========================================================== */
+
+.app {
+
+    display: flex;
+
+    flex-direction: column;
+
+    width: 100vw;
+
+    height: 100vh;
 
 }
 
@@ -83,16 +130,9 @@ body {
 /* HEADER                                                     */
 /* ========================================================== */
 
-
 .header {
 
-    width: 1600px;
-
-    height: 110px;
-
-    margin: 20px auto 0;
-
-    border: 3px solid black;
+    flex: 0 0 var(--header-height);
 
     display: flex;
 
@@ -102,53 +142,49 @@ body {
 
     align-items: center;
 
+    border-bottom: var(--border-width) solid var(--border-color);
+
 }
+
 
 
 .header h1 {
 
-    font-size: 42px;
+    font-size: 2.2rem;
 
     font-weight: 700;
 
 }
 
 
+
 .header p {
 
-    font-size: 22px;
+    margin-top: 6px;
+
+    font-size: 1rem;
 
 }
 
 
 
 /* ========================================================== */
-/* MAIN APPLICATION                                           */
+/* MAIN LAYOUT                                                */
 /* ========================================================== */
-
 
 .mainLayout {
 
-    width: 1600px;
-
-    height: 820px;
-
-    margin: 0 auto;
+    flex: 1;
 
     display: grid;
 
     grid-template-columns:
 
-        340px
+        320px
 
         1fr
 
-        300px;
-
-
-    border:
-
-        3px solid black;
+        280px;
 
 }
 
@@ -158,17 +194,20 @@ body {
 /* PANELS                                                     */
 /* ========================================================== */
 
-
 .leftPanel,
 .centerPanel,
 .rightPanel {
 
+    display: flex;
 
-    height: 100%;
+    flex-direction: column;
 
-    padding: 22px;
+    padding: var(--padding);
+
+    overflow: hidden;
 
 }
+
 
 
 .leftPanel,
@@ -176,57 +215,51 @@ body {
 
     border-right:
 
-        3px solid black;
+        var(--border-width)
+
+        solid
+
+        var(--border-color);
 
 }
 
 
 
 /* ========================================================== */
-/* SECTION HEADER                                             */
+/* SECTION                                                    */
 /* ========================================================== */
 
-
-.sectionTitle {
-
+.section {
 
     display: flex;
 
-    justify-content: space-between;
-
-    align-items: center;
-
-
-    padding-bottom:
-
-        10px;
-
-
-    margin-bottom:
-
-        18px;
-
-
-    border-bottom:
-
-        2px solid black;
-
+    flex-direction: column;
 
 }
 
 
-.sectionTitle h2 {
 
+/* ========================================================== */
+/* SECTION TITLE                                              */
+/* ========================================================== */
 
-    font-size:
+.sectionTitle {
 
-        26px;
+    font-size: 1.45rem;
 
+    font-weight: 700;
 
-    font-weight:
+    padding-bottom: 10px;
 
-        700;
+    margin-bottom: 18px;
 
+    border-bottom:
+
+        var(--border-width)
+
+        solid
+
+        var(--border-color);
 
 }
 
@@ -236,106 +269,135 @@ body {
 /* BUTTON                                                     */
 /* ========================================================== */
 
+button {
 
-button,
-.chooseFileButton {
-
-
-    height:
-
-        42px;
-
-
-    padding:
-
-        0 18px;
-
+    height: 42px;
 
     border:
 
-        2px solid black;
+        var(--border-width)
 
+        solid
 
-    background:
+        var(--border-color);
 
-        white;
+    background: white;
 
+    font-family: inherit;
 
-    font-family:
+    font-size: 1rem;
 
-        inherit;
-
-
-    font-size:
-
-        18px;
-
-
-    cursor:
-
-        pointer;
-
+    cursor: pointer;
 
 }
 
 
-button:hover,
-.chooseFileButton:hover {
+
+button:hover {
+
+    background: #efefef;
+
+}
 
 
-    background:
 
-        #eeeeee;
+button:active {
 
+    background: #dddddd;
+
+}
+
+
+
+button:disabled {
+
+    opacity: .5;
+
+    cursor: not-allowed;
 
 }
 
 
 
 /* ========================================================== */
-/* LEFT PANEL - ADD PHOTO                                     */
+/* HIDDEN INPUT                                               */
 /* ========================================================== */
 
+input[type=file] {
+
+    display: none;
+
+}
+
+/* ========================================================== */
+/* LEFT PANEL                                                 */
+/* ========================================================== */
+
+.leftPanel {
+
+    gap: 18px;
+
+}
+
+
+
+/* ========================================================== */
+/* ADD PHOTO                                                  */
+/* ========================================================== */
 
 .uploadSection {
 
+    display: flex;
 
-    display:
+    flex-direction: column;
 
-        flex;
-
-
-    flex-direction:
-
-        column;
-
+    height: 100%;
 
 }
 
 
 
+/* ========================================================== */
+/* CHOOSE BUTTON                                               */
+/* ========================================================== */
+
 .chooseFileButton {
 
+    width: 140px;
 
-    display:
+    height: 42px;
 
-        flex;
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border: var(--border-width) solid var(--border-color);
+
+    background: white;
+
+    cursor: pointer;
+
+    user-select: none;
+
+    margin-bottom: 18px;
+
+}
 
 
-    align-items:
 
-        center;
+.chooseFileButton:hover {
 
+    background: #efefef;
 
-    justify-content:
-
-        center;
+}
 
 
-    width:
 
-        150px;
+.chooseFileButton:active {
 
+    background: #dddddd;
 
 }
 
@@ -345,70 +407,55 @@ button:hover,
 /* THUMBNAIL                                                  */
 /* ========================================================== */
 
-
 .thumbnailBox {
 
+    width: 100%;
 
-    margin-top:
+    height: 260px;
 
-        20px;
+    border: var(--border-width) solid var(--border-color);
 
+    display: flex;
 
-    width:
+    justify-content: center;
 
-        100%;
+    align-items: center;
 
+    overflow: hidden;
 
-    height:
-
-        230px;
-
-
-    border:
-
-        2px solid black;
-
-
-    display:
-
-        flex;
-
-
-    justify-content:
-
-        center;
-
-
-    align-items:
-
-        center;
-
-
-    overflow:
-
-        hidden;
-
+    background: #fafafa;
 
 }
 
 
+
+/* ========================================================== */
+/* THUMBNAIL IMAGE                                            */
+/* ========================================================== */
+
 .thumbnailBox img {
 
+    width: 100%;
 
-    width:
+    height: 100%;
 
-        100%;
+    object-fit: contain;
 
-
-    height:
-
-        100%;
+}
 
 
-    object-fit:
 
-        contain;
+/* ========================================================== */
+/* EMPTY THUMBNAIL                                            */
+/* ========================================================== */
 
+.thumbnailBox:empty::before {
+
+    content: "No photo selected";
+
+    color: #888888;
+
+    font-size: 1rem;
 
 }
 
@@ -418,416 +465,663 @@ button:hover,
 /* FILE INFORMATION                                           */
 /* ========================================================== */
 
+.fileInformation {
+
+    margin-top: 20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+}
+
+
+
+/* ========================================================== */
+/* FILE ROW                                                   */
+/* ========================================================== */
+
+.fileRow {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    border-bottom: 1px solid #d0d0d0;
+
+    padding-bottom: 6px;
+
+    min-height: 30px;
+
+}
+
+
+
+/* ========================================================== */
+/* LABEL                                                      */
+/* ========================================================== */
+
+.fileRow label {
+
+    font-weight: 700;
+
+}
+
+
+
+/* ========================================================== */
+/* VALUE                                                      */
+/* ========================================================== */
+
+.fileRow span {
+
+    text-align: right;
+
+    max-width: 170px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+
+/* ========================================================== */
+/* FILE NAME                                                  */
+/* ========================================================== */
+
+#fileName {
+
+    max-width: 170px;
+
+}
+
+
+
+/* ========================================================== */
+/* FILE TYPE                                                  */
+/* ========================================================== */
+
+#fileType {
+
+    text-transform: uppercase;
+
+}
+
+
+
+/* ========================================================== */
+/* EMPTY VALUE                                                */
+/* ========================================================== */
+
+.fileRow span:empty::before {
+
+    content: "-";
+
+    color: #888888;
+
+}
+
+
+
+/* ========================================================== */
+/* KEEP INFO AT TOP                                           */
+/* ========================================================== */
 
 .fileInformation {
 
-
-    margin-top:
-
-        25px;
-
+    flex: 0 0 auto;
 
 }
 
 
-.fileInformation p {
 
+/* ========================================================== */
+/* SPACING                                                    */
+/* ========================================================== */
 
-    display:
+.uploadSection>* {
 
-        flex;
-
-
-    justify-content:
-
-        space-between;
-
-
-    margin-bottom:
-
-        15px;
-
-
-    font-size:
-
-        17px;
-
-
-    border-bottom:
-
-        1px solid #cccccc;
-
-
-    padding-bottom:
-
-        5px;
-
+    flex-shrink: 0;
 
 }
-
-
 
 /* ========================================================== */
 /* CENTER PANEL                                               */
 /* ========================================================== */
 
-
 .centerPanel {
 
+    display: flex;
 
-    display:
+    flex-direction: column;
 
-        flex;
-
-
-    flex-direction:
-
-        column;
-
+    overflow: hidden;
 
 }
 
 
 
 /* ========================================================== */
-/* POSE PREVIEW                                               */
+/* POSE SECTION                                               */
 /* ========================================================== */
 
+.poseSection {
 
-.previewBox {
+    display: flex;
 
+    flex-direction: column;
 
-    width:
-
-        100%;
-
-
-    height:
-
-        500px;
-
-
-    border:
-
-        2px solid black;
-
-
-    position:
-
-        relative;
-
-
-}
-
-
-.previewBox canvas {
-
-
-    width:
-
-        100%;
-
-
-    height:
-
-        100%;
-
+    height: 100%;
 
 }
 
 
 
 /* ========================================================== */
-/* CONFIDENCE BOX                                             */
+/* EDIT BUTTON                                                */
 /* ========================================================== */
 
+.editToolbar {
+
+    display: flex;
+
+    justify-content: flex-start;
+
+    margin-bottom: 16px;
+
+}
+
+
+
+#editButton {
+
+    width: 120px;
+
+}
+
+
+
+/* ========================================================== */
+/* CANVAS CONTAINER                                           */
+/* ========================================================== */
+
+.canvasContainer {
+
+    position: relative;
+
+    flex: 1;
+
+    min-height: 0;
+
+    border: var(--border-width) solid var(--border-color);
+
+    background: #f7f7f7;
+
+    overflow: hidden;
+
+}
+
+
+
+/* ========================================================== */
+/* CANVAS                                                     */
+/* ========================================================== */
+
+#poseCanvas {
+
+    display: block;
+
+    width: 100%;
+
+    height: 100%;
+
+    cursor: crosshair;
+
+}
+
+
+
+/* ========================================================== */
+/* STATUS                                                     */
+/* ========================================================== */
+
+.canvasStatus {
+
+    position: absolute;
+
+    left: 16px;
+
+    top: 16px;
+
+    padding: 8px 12px;
+
+    background: rgba(255,255,255,.92);
+
+    border: var(--border-width) solid var(--border-color);
+
+    font-size: .95rem;
+
+}
+
+
+
+/* ========================================================== */
+/* CONFIDENCE                                                 */
+/* ========================================================== */
 
 .confidenceBox {
 
+    position: absolute;
 
-    position:
+    right: 16px;
 
-        absolute;
+    bottom: 16px;
 
+    display: flex;
 
-    right:
+    align-items: center;
 
-        15px;
+    gap: 10px;
 
+    padding: 10px 14px;
 
-    bottom:
+    background: rgba(255,255,255,.92);
 
-        15px;
+    border: var(--border-width) solid var(--border-color);
 
-
-    background:
-
-        white;
-
-
-    border:
-
-        2px solid black;
+}
 
 
-    padding:
 
-        8px 15px;
+.confidenceValue {
 
+    width: 60px;
 
-    display:
+    text-align: center;
 
-        flex;
-
-
-    gap:
-
-        10px;
-
+    font-weight: 700;
 
 }
 
 
 
 /* ========================================================== */
-/* MEASUREMENTS                                               */
+/* MEASUREMENT GRID                                           */
 /* ========================================================== */
-
 
 .measurementGrid {
 
+    display: grid;
 
-    margin-top:
+    grid-template-columns: repeat(3,1fr);
 
-        20px;
+    gap: 16px;
 
+    margin-top: 18px;
 
-    display:
-
-        grid;
-
-
-    grid-template-columns:
-
-        repeat(3,1fr);
-
-
-    gap:
-
-        15px;
-
+    flex-shrink: 0;
 
 }
 
 
+
+/* ========================================================== */
+/* CARD                                                       */
+/* ========================================================== */
 
 .measurementCard {
 
+    border: var(--border-width) solid var(--border-color);
 
-    border:
+    padding: 14px;
 
-        2px solid black;
-
-
-    padding:
-
-        15px;
-
+    background: white;
 
 }
 
 
+
+/* ========================================================== */
+/* CARD TITLE                                                 */
+/* ========================================================== */
 
 .measurementCard h3 {
 
+    text-align: center;
 
-    text-align:
+    font-size: 1.15rem;
 
-        center;
+    font-weight: 700;
 
+    margin-bottom: 14px;
 
-    font-size:
+    padding-bottom: 8px;
 
-        22px;
-
-
-    border-bottom:
-
-        1px solid black;
-
-
-    padding-bottom:
-
-        8px;
-
-
-    margin-bottom:
-
-        15px;
-
+    border-bottom: 1px solid #cfcfcf;
 
 }
 
 
+
+/* ========================================================== */
+/* ROW                                                        */
+/* ========================================================== */
 
 .measurementRow {
 
+    display: flex;
 
-    display:
+    justify-content: space-between;
 
-        flex;
+    align-items: center;
 
-
-    justify-content:
-
-        space-between;
-
-
-    margin-bottom:
-
-        12px;
-
+    margin-bottom: 12px;
 
 }
 
+
+
+.measurementRow:last-child {
+
+    margin-bottom: 0;
+
+}
+
+
+
+/* ========================================================== */
+/* VALUE                                                      */
+/* ========================================================== */
 
 .valueBox {
 
+    width: 64px;
 
-    width:
+    height: 32px;
 
-        50px;
+    display: flex;
 
+    justify-content: center;
 
-    height:
+    align-items: center;
 
-        30px;
+    border: 1px solid var(--border-color);
 
-
-    border:
-
-        1px solid black;
-
+    font-weight: 700;
 
 }
 
 
+
+/* ========================================================== */
+/* RISK COLORS                                                */
+/* ========================================================== */
+
+.valueGood {
+
+    background: #4CAF50;
+
+    color: white;
+
+}
+
+
+
+.valueWarning {
+
+    background: #FFC107;
+
+}
+
+
+
+.valueDanger {
+
+    background: #F44336;
+
+    color: white;
+
+}
+
+
+
+/* ========================================================== */
+/* EMPTY VALUE                                                */
+/* ========================================================== */
+
+.valueBox:empty::before {
+
+    content: "--";
+
+    color: #888888;
+
+}
+
+
+
+/* ========================================================== */
+/* CANVAS PLACEHOLDER                                         */
+/* ========================================================== */
+
+.canvasContainer::before {
+
+    content: "Upload an image to begin";
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    color: #9a9a9a;
+
+    pointer-events: none;
+
+}
+
+
+
+/* Hide placeholder once JS adds a loaded class */
+
+.canvasContainer.loaded::before {
+
+    display: none;
+
+}
 
 /* ========================================================== */
 /* RIGHT PANEL                                                */
 /* ========================================================== */
 
+.rightPanel {
 
-.loadSection label {
+    display: flex;
 
+    flex-direction: column;
 
-    display:
-
-        block;
-
-
-    margin-bottom:
-
-        18px;
-
-
-    font-size:
-
-        18px;
-
-
-}
-
-
-.loadSection input {
-
-
-    width:
-
-        18px;
-
-
-    height:
-
-        18px;
-
+    overflow: hidden;
 
 }
 
 
 
 /* ========================================================== */
-/* RESULT                                                     */
+/* LOAD SECTION                                               */
 /* ========================================================== */
 
+.loadSection {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+
+/* ========================================================== */
+/* LOAD OPTIONS                                               */
+/* ========================================================== */
+
+.loadOptions {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+
+}
+
+
+
+/* ========================================================== */
+/* LOAD LABEL                                                 */
+/* ========================================================== */
+
+.loadOptions label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    cursor: pointer;
+
+    font-size: 1rem;
+
+}
+
+
+
+/* ========================================================== */
+/* RADIO BUTTON                                               */
+/* ========================================================== */
+
+.loadOptions input[type="radio"] {
+
+    width: 18px;
+
+    height: 18px;
+
+    accent-color: #000000;
+
+}
+
+
+
+/* ========================================================== */
+/* SPACING BETWEEN SECTIONS                                   */
+/* ========================================================== */
 
 .resultSection {
 
-
-    margin-top:
-
-        30px;
-
-
-}
-
-
-.resultSection h2 {
-
-
-    font-size:
-
-        26px;
-
-
-    border-bottom:
-
-        2px solid black;
-
-
-    padding-bottom:
-
-        10px;
-
+    margin-top: 36px;
 
 }
 
 
 
-.resultSection p {
+/* ========================================================== */
+/* RESULT ROW                                                 */
+/* ========================================================== */
 
+.resultRow {
 
-    display:
+    display: flex;
 
-        flex;
+    justify-content: space-between;
 
+    align-items: center;
 
-    justify-content:
+    margin-bottom: 18px;
 
-        space-between;
+    padding-bottom: 8px;
 
-
-    margin-top:
-
-        20px;
-
-
-    font-size:
-
-        20px;
-
+    border-bottom: 1px solid #d6d6d6;
 
 }
 
 
 
-.resultSection span {
+/* ========================================================== */
+/* RESULT LABEL                                               */
+/* ========================================================== */
+
+.resultRow label {
+
+    font-weight: 700;
+
+}
 
 
-    font-weight:
 
-        700;
+/* ========================================================== */
+/* RESULT VALUE                                               */
+/* ========================================================== */
 
+.resultValue {
+
+    min-width: 80px;
+
+    height: 34px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border: 1px solid var(--border-color);
+
+    background: white;
+
+    font-weight: 700;
+
+}
+
+
+
+/* ========================================================== */
+/* RESULT COLORS                                              */
+/* ========================================================== */
+
+.resultLow {
+
+    background: #4CAF50;
+
+    color: white;
+
+}
+
+
+
+.resultMedium {
+
+    background: #FFC107;
+
+    color: black;
+
+}
+
+
+
+.resultHigh {
+
+    background: #F44336;
+
+    color: white;
 
 }
 
@@ -837,57 +1131,478 @@ button:hover,
 /* EXPORT                                                     */
 /* ========================================================== */
 
-
 .exportButton {
 
+    width: 100%;
 
-    width:
+    height: 46px;
 
-        100%;
-
-
-    margin-top:
-
-        40px;
-
-
-    height:
-
-        50px;
-
-
-    font-size:
-
-        20px;
-
+    margin-top: 24px;
 
 }
 
 
 
 /* ========================================================== */
-/* TABLET / IPAD LANDSCAPE                                    */
+/* PUSH BUTTON TO BOTTOM                                      */
 /* ========================================================== */
 
+.rightPanelSpacer {
 
-@media(max-width:1600px){
+    flex: 1;
+
+}
 
 
-    .header,
+
+/* ========================================================== */
+/* EMPTY RESULT                                               */
+/* ========================================================== */
+
+.resultValue:empty::before {
+
+    content: "--";
+
+    color: #888888;
+
+}
+
+
+
+/* ========================================================== */
+/* SELECTED LANDMARK                                          */
+/* ========================================================== */
+
+.selectedLandmarkBox {
+
+    margin-top: 24px;
+
+    padding: 12px;
+
+    border: var(--border-width) solid var(--border-color);
+
+    background: #fafafa;
+
+    font-size: .95rem;
+
+}
+
+
+
+/* ========================================================== */
+/* SELECTED LANDMARK TITLE                                    */
+/* ========================================================== */
+
+.selectedLandmarkBox strong {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+}
+
+
+
+/* ========================================================== */
+/* LANDMARK NAME                                              */
+/* ========================================================== */
+
+#selectedLandmarkName {
+
+    font-weight: 700;
+
+}
+
+
+
+/* ========================================================== */
+/* LANDMARK POSITION                                          */
+/* ========================================================== */
+
+#selectedLandmarkPosition {
+
+    margin-top: 6px;
+
+    color: #444444;
+
+}
+
+
+
+/* ========================================================== */
+/* DISABLED EXPORT                                            */
+/* ========================================================== */
+
+.exportButton:disabled {
+
+    opacity: .5;
+
+    cursor: not-allowed;
+
+}
+
+
+
+/* ========================================================== */
+/* BUTTON TRANSITION                                          */
+/* ========================================================== */
+
+button {
+
+    transition:
+
+        background .2s,
+
+        opacity .2s,
+
+        transform .15s;
+
+}
+
+
+
+button:active {
+
+    transform: scale(.98);
+
+}
+
+/* ========================================================== */
+/* FINAL POLISH                                               */
+/* ========================================================== */
+
+/* Better text rendering */
+
+body {
+
+    -webkit-font-smoothing: antialiased;
+
+    -moz-osx-font-smoothing: grayscale;
+
+}
+
+
+
+/* ========================================================== */
+/* IMAGE                                                      */
+/* ========================================================== */
+
+img {
+
+    display: block;
+
+    max-width: 100%;
+
+}
+
+
+
+/* ========================================================== */
+/* CANVAS                                                     */
+/* ========================================================== */
+
+canvas {
+
+    display: block;
+
+}
+
+
+
+/* ========================================================== */
+/* FOCUS                                                      */
+/* ========================================================== */
+
+button:focus-visible,
+label:focus-visible,
+input:focus-visible {
+
+    outline: 3px solid #4A90E2;
+
+    outline-offset: 2px;
+
+}
+
+
+
+/* ========================================================== */
+/* SCROLLBAR                                                  */
+/* ========================================================== */
+
+::-webkit-scrollbar {
+
+    width: 8px;
+
+    height: 8px;
+
+}
+
+
+
+::-webkit-scrollbar-thumb {
+
+    background: #bbbbbb;
+
+}
+
+
+
+::-webkit-scrollbar-track {
+
+    background: #f2f2f2;
+
+}
+
+
+
+/* ========================================================== */
+/* PANEL CONTENT                                              */
+/* ========================================================== */
+
+.leftPanel,
+.centerPanel,
+.rightPanel {
+
+    min-height: 0;
+
+}
+
+
+
+/* ========================================================== */
+/* SECTION                                                    */
+/* ========================================================== */
+
+.section {
+
+    min-height: 0;
+
+}
+
+
+
+/* ========================================================== */
+/* THUMBNAIL                                                  */
+/* ========================================================== */
+
+.thumbnailBox {
+
+    flex-shrink: 0;
+
+}
+
+
+
+/* ========================================================== */
+/* FILE INFO                                                  */
+/* ========================================================== */
+
+.fileInformation {
+
+    overflow: hidden;
+
+}
+
+
+
+/* ========================================================== */
+/* CANVAS                                                     */
+/* ========================================================== */
+
+.canvasContainer {
+
+    min-width: 0;
+
+    min-height: 0;
+
+}
+
+
+
+/* ========================================================== */
+/* EDIT MODE                                                  */
+/* ========================================================== */
+
+.canvasEditing {
+
+    cursor: crosshair;
+
+}
+
+
+
+.canvasViewing {
+
+    cursor: default;
+
+}
+
+
+
+/* ========================================================== */
+/* STATUS                                                     */
+/* ========================================================== */
+
+.canvasStatus {
+
+    user-select: none;
+
+}
+
+
+
+/* ========================================================== */
+/* SELECTED LANDMARK                                          */
+/* ========================================================== */
+
+.selectedLandmarkBox {
+
+    user-select: none;
+
+}
+
+
+
+/* ========================================================== */
+/* RESULT                                                     */
+/* ========================================================== */
+
+.resultValue {
+
+    user-select: none;
+
+}
+
+
+
+/* ========================================================== */
+/* BUTTONS                                                    */
+/* ========================================================== */
+
+button,
+
+.chooseFileButton {
+
+    transition:
+
+        background-color .2s ease,
+
+        transform .12s ease,
+
+        box-shadow .2s ease;
+
+}
+
+
+
+button:hover,
+
+.chooseFileButton:hover {
+
+    box-shadow:
+
+        0 2px 6px rgba(0,0,0,.15);
+
+}
+
+
+
+button:active,
+
+.chooseFileButton:active {
+
+    transform: scale(.98);
+
+}
+
+
+
+/* ========================================================== */
+/* TABLET                                                     */
+/* ========================================================== */
+
+@media (max-width: 1200px) {
+
     .mainLayout {
 
+        grid-template-columns:
 
-        margin-left:
+            280px
 
-            20px;
+            1fr
 
-
-        margin-right:
-
-            20px;
-
+            240px;
 
     }
 
+}
+
+
+
+/* ========================================================== */
+/* SMALL LAPTOP                                               */
+/* ========================================================== */
+
+@media (max-width: 1000px) {
+
+    .mainLayout {
+
+        grid-template-columns:
+
+            240px
+
+            1fr
+
+            220px;
+
+    }
+
+}
+
+
+
+/* ========================================================== */
+/* MINIMUM SIZE                                               */
+/* ========================================================== */
+
+body {
+
+    min-width: 960px;
+
+    min-height: 720px;
+
+}
+
+
+
+/* ========================================================== */
+/* DISABLE TEXT SELECTION                                     */
+/* ========================================================== */
+
+button,
+
+.chooseFileButton,
+
+.sectionTitle,
+
+.header {
+
+    user-select: none;
+
+}
+
+
+
+/* ========================================================== */
+/* PRINT                                                      */
+/* ========================================================== */
+
+@media print {
+
+    body {
+
+        overflow: visible;
+
+    }
 
 }
