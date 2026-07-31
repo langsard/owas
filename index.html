@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -19,377 +20,675 @@
 
 <body>
 
-    <!-- ====================================================== -->
-    <!-- HEADER -->
-    <!-- ====================================================== -->
+    <div class="app">
 
-    <header class="header">
+        <!-- ============================================== -->
+        <!-- HEADER                                        -->
+        <!-- ============================================== -->
 
-        <h1>Sit Tight</h1>
+        <header class="header">
 
-        <p>OWAS Assessment by MoveNet CNN</p>
+            <h1>
 
-    </header>
+                Sit Tight
 
-    <!-- ====================================================== -->
-    <!-- MAIN -->
-    <!-- ====================================================== -->
+            </h1>
 
-    <main class="mainLayout">
+            <p>
 
-        <!-- ================================================== -->
-        <!-- LEFT PANEL -->
-        <!-- ================================================== -->
+                Ergonomic Risk Assessment using Human Pose Estimation
 
-        <aside class="leftPanel">
+            </p>
 
-            <!-- Upload -->
+        </header>
 
-            <section class="uploadSection">
 
-                <div class="sectionTitle">
 
-                    <h2>1. Add Photo</h2>
+        <!-- ============================================== -->
+        <!-- MAIN LAYOUT                                   -->
+        <!-- ============================================== -->
+
+        <main class="mainLayout">
+
+
+
+            <!-- ========================================== -->
+            <!-- LEFT PANEL                                -->
+            <!-- ========================================== -->
+
+            <aside class="uploadPanel leftPanel">
+
+                <section class="uploadSection section">
+
+                    <h2 class="sectionTitle">
+
+                        1. Add Photo
+
+                    </h2>
+
+
+
+                    <!-- Hidden input -->
+
+                    <input
+
+                        id="photoInput"
+
+                        type="file"
+
+                        accept="image/*">
+
+
+
+                    <!-- Choose button -->
 
                     <label
-                        class="chooseFileButton"
-                        for="photoInput">
 
-                        Choose
+                        for="photoInput"
+
+                        class="chooseFileButton">
+
+                        Choose Photo
 
                     </label>
 
-                    <input
-                        id="photoInput"
-                        type="file"
-                        accept="image/*"
-                        hidden>
 
-                </div>
 
-                <!-- Thumbnail -->
+                    <!-- Thumbnail -->
 
-                <div class="thumbnailBox">
+                    <div class="thumbnailBox">
 
-                    <img
-                        id="thumbnail"
-                        alt="Thumbnail Preview">
+                        <img
 
-                </div>
+                            id="thumbnail"
+
+                            alt="Preview">
+
+                    </div>
+
+
+
+                    <!-- File information -->
+
+                    <div class="fileInformation">
+
+                        <div class="fileRow">
+
+                            <label>
+
+                                File
+
+                            </label>
+
+                            <span id="fileName"></span>
+
+                        </div>
+
+
+
+                        <div class="fileRow">
+
+                            <label>
+
+                                Resolution
+
+                            </label>
+
+                            <span id="resolution"></span>
+
+                        </div>
+
+
+
+                        <div class="fileRow">
+
+                            <label>
+
+                                Size
+
+                            </label>
+
+                            <span id="fileSize"></span>
+
+                        </div>
+
+
+
+                        <div class="fileRow">
+
+                            <label>
+
+                                Type
+
+                            </label>
+
+                            <span id="fileType"></span>
+
+                        </div>
+
+
+
+                        <div class="fileRow">
+
+                            <label>
+
+                                Modified
+
+                            </label>
+
+                            <span id="fileDate"></span>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </aside>
+
+            <!-- ========================================== -->
+            <!-- CENTER PANEL                              -->
+            <!-- ========================================== -->
+
+            <section class="posePanel centerPanel">
+
+                <section class="poseSection section">
+
+                    <h2 class="sectionTitle">
+
+                        2. Pose Estimate
+
+                    </h2>
+
+
+
+                    <!-- ================================== -->
+                    <!-- EDIT TOOLBAR                       -->
+                    <!-- ================================== -->
+
+                    <div class="editToolbar">
+
+                        <button
+
+                            id="editButton"
+
+                            type="button">
+
+                            Edit
+
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- ================================== -->
+                    <!-- CANVAS                            -->
+                    <!-- ================================== -->
+
+                    <div
+
+                        class="canvasContainer"
+
+                        id="canvasContainer">
+
+
+
+                        <canvas
+
+                            id="poseCanvas"
+
+                            width="1280"
+
+                            height="720">
+
+                            Your browser does not support HTML5 Canvas.
+
+                        </canvas>
+
+
+
+                        <!-- Canvas Status -->
+
+                        <div
+
+                            class="canvasStatus"
+
+                            id="canvasStatus">
+
+                            Ready
+
+                        </div>
+
+
+
+                        <!-- Overall Confidence -->
+
+                        <div class="confidenceBox">
+
+                            <span>
+
+                                Confidence
+
+                            </span>
+
+                            <div
+
+                                class="confidenceValue"
+
+                                id="confidenceValue">
+
+                                --
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ================================== -->
+                    <!-- BODY MEASUREMENTS                  -->
+                    <!-- ================================== -->
+
+                    <div class="measurementGrid">
+
+
+
+                        <!-- BACK -->
+
+                        <div class="measurementCard">
+
+                            <h3>
+
+                                Back
+
+                            </h3>
+
+
+
+                            <div class="measurementRow">
+
+                                <span>
+
+                                    Flexion
+
+                                </span>
+
+                                <div
+
+                                    class="valueBox"
+
+                                    id="backFlexion">
+
+                                    --
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="measurementRow">
+
+                                <span>
+
+                                    Twist
+
+                                </span>
+
+                                <div
+
+                                    class="valueBox"
+
+                                    id="backTwist">
+
+                                    --
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- ARMS -->
+
+                        <div class="measurementCard">
+
+                            <h3>
+
+                                Arms
+
+                            </h3>
+
+
+
+                            <div class="measurementRow">
+
+                                <span>
+
+                                    Left
+
+                                </span>
+
+                                <div
+
+                                    class="valueBox"
+
+                                    id="leftArmAngle">
+
+                                    --
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="measurementRow">
+
+                                <span>
+
+                                    Right
+
+                                </span>
+
+                                <div
+
+                                    class="valueBox"
+
+                                    id="rightArmAngle">
+
+                                    --
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- LEGS -->
+
+                        <div class="measurementCard">
+
+                            <h3>
+
+                                Legs
+
+                            </h3>
+
+
+
+                            <div class="measurementRow">
+
+                                <span>
+
+                                    Left
+
+                                </span>
+
+                                <div
+
+                                    class="valueBox"
+
+                                    id="leftLegAngle">
+
+                                    --
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="measurementRow">
+
+                                <span>
+
+                                    Right
+
+                                </span>
+
+                                <div
+
+                                    class="valueBox"
+
+                                    id="rightLegAngle">
+
+                                    --
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
 
             </section>
 
-            <!-- File Information -->
 
-            <section class="fileInformation">
+            <!-- ========================================== -->
+            <!-- RIGHT PANEL                               -->
+            <!-- ========================================== -->
 
-                <p>
+            <aside class="analysisPanel rightPanel">
 
-                    <strong>File name:</strong>
+                <!-- ====================================== -->
+                <!-- LOAD                                   -->
+                <!-- ====================================== -->
 
-                    <span id="fileName">
+                <section class="loadSection section">
 
-                        -
+                    <h2 class="sectionTitle">
 
-                    </span>
+                        3. Select Load
 
-                </p>
+                    </h2>
 
-                <p>
+                    <div class="loadOptions">
 
-                    <strong>Resolution:</strong>
+                        <label>
 
-                    <span id="resolution">
+                            <input
+                                type="radio"
+                                name="loadCategory"
+                                value="1"
+                                checked>
 
-                        -
+                            Less than 10 kg
 
-                    </span>
+                        </label>
 
-                </p>
+                        <label>
 
-                <p>
+                            <input
+                                type="radio"
+                                name="loadCategory"
+                                value="2">
 
-                    <strong>Size:</strong>
+                            10–20 kg
 
-                    <span id="fileSize">
+                        </label>
 
-                        -
+                        <label>
 
-                    </span>
+                            <input
+                                type="radio"
+                                name="loadCategory"
+                                value="3">
 
-                </p>
+                            More than 20 kg
 
-                <p>
+                        </label>
 
-                    <strong>Date:</strong>
+                    </div>
 
-                    <span id="fileDate">
+                </section>
 
-                        -
 
-                    </span>
 
-                </p>
+                <!-- ====================================== -->
+                <!-- RESULT                                 -->
+                <!-- ====================================== -->
 
-                <p>
+                <section class="resultSection section">
 
-                    <strong>Type:</strong>
+                    <h2 class="sectionTitle">
 
-                    <span id="fileType">
+                        4. Get Result
 
-                        -
+                    </h2>
 
-                    </span>
+                    <div class="resultRow">
 
-                </p>
+                        <label>
 
-            </section>
+                            OWAS Code
 
-        </aside>
+                        </label>
 
-        <!-- ================================================== -->
-        <!-- CENTER PANEL -->
-        <!-- ================================================== -->
+                        <div
 
-        <section class="centerPanel">
+                            id="owasCode"
 
-            <div class="sectionTitle">
+                            class="resultValue">
 
-                <h2>2. Pose Estimate</h2>
+                            --
+
+                        </div>
+
+                    </div>
+
+                    <div class="resultRow">
+
+                        <label>
+
+                            Risk Level
+
+                        </label>
+
+                        <div
+
+                            id="riskLevel"
+
+                            class="resultValue">
+
+                            --
+
+                        </div>
+
+                    </div>
+
+                    <div class="resultRow">
+
+                        <label>
+
+                            Action Category
+
+                        </label>
+
+                        <div
+
+                            id="actionCategory"
+
+                            class="resultValue">
+
+                            --
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ================================== -->
+                    <!-- SELECTED LANDMARK                  -->
+                    <!-- ================================== -->
+
+                    <div class="selectedLandmarkBox">
+
+                        <strong>
+
+                            Selected Landmark
+
+                        </strong>
+
+                        <div
+
+                            id="selectedLandmarkName">
+
+                            None
+
+                        </div>
+
+                        <div
+
+                            id="selectedLandmarkPosition">
+
+                            ( -, - )
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <div class="rightPanelSpacer"></div>
+
+
+
+                <!-- ====================================== -->
+                <!-- EXPORT                                 -->
+                <!-- ====================================== -->
 
                 <button
-                    type="button">
 
-                    Edit
+                    id="exportPdfButton"
+
+                    class="exportButton"
+
+                    type="button"
+
+                    disabled>
+
+                    Export PDF
 
                 </button>
 
-            </div>
+            </aside>
 
-            <div class="previewBox">
+        </main>
 
-                <canvas
-                    id="poseCanvas"
-                    width="1280"
-                    height="720">
+    </div>
 
-                </canvas>
 
-                <div class="confidenceBox">
 
-                    Avg. Conf.
+    <!-- ============================================== -->
+    <!-- THIRD-PARTY LIBRARIES                          -->
+    <!-- ============================================== -->
 
-                    <span id="avgConfidence">
+    <script src="libs/pdf-lib.min.js"></script>
 
-                        --
 
-                    </span>
 
-                </div>
-
-            </div>
-
-            <div class="measurementGrid">
-
-                <!-- BACK -->
-
-                <section class="measurementCard">
-
-                    <h3>Back</h3>
-
-                    <div class="measurementRow">
-
-                        <span>Flexion</span>
-
-                        <span
-                            class="valueBox"
-                            id="backFlexion">
-
-                        </span>
-
-                    </div>
-
-                    <div class="measurementRow">
-
-                        <span>Twisted</span>
-
-                        <span
-                            class="valueBox"
-                            id="backTwisted">
-
-                        </span>
-
-                    </div>
-
-                </section>
-
-                <!-- ARMS -->
-
-                <section class="measurementCard">
-
-                    <h3>Arms (L/R)</h3>
-
-                    <div class="measurementRow">
-
-                        <span>Shoulder</span>
-
-                        <span
-                            class="valueBox"
-                            id="shoulderAngle">
-
-                        </span>
-
-                    </div>
-
-                    <div class="measurementRow">
-
-                        <span>Elbow</span>
-
-                        <span
-                            class="valueBox"
-                            id="elbowAngle">
-
-                        </span>
-
-                    </div>
-
-                </section>
-
-                <!-- LEGS -->
-
-                <section class="measurementCard">
-
-                    <h3>Legs (L/R)</h3>
-
-                    <div class="measurementRow">
-
-                        <span>Hip</span>
-
-                        <span
-                            class="valueBox"
-                            id="hipAngle">
-
-                        </span>
-
-                    </div>
-
-                    <div class="measurementRow">
-
-                        <span>Knee</span>
-
-                        <span
-                            class="valueBox"
-                            id="kneeAngle">
-
-                        </span>
-
-                    </div>
-
-                </section>
-
-            </div>
-
-        </section>
-
-        <!-- ================================================== -->
-        <!-- RIGHT PANEL -->
-        <!-- ================================================== -->
-
-        <aside class="rightPanel">
-
-            <!-- LOAD -->
-
-            <section class="loadSection">
-
-                <h2>3. Select Load</h2>
-
-                <label>
-
-                    <input
-                        type="radio"
-                        name="load"
-                        value="1"
-                        checked>
-
-                    1 (<10kg)
-
-                </label>
-
-                <label>
-
-                    <input
-                        type="radio"
-                        name="load"
-                        value="2">
-
-                    2 (10-20kg)
-
-                </label>
-
-                <label>
-
-                    <input
-                        type="radio"
-                        name="load"
-                        value="3">
-
-                    3 (>20kg)
-
-                </label>
-
-            </section>
-
-            <!-- RESULT -->
-
-            <section class="resultSection">
-
-                <h2>4. Get Result</h2>
-
-                <p>
-
-                    <strong>OWAS Score:</strong>
-
-                    <span id="owasScore">
-
-                        1231
-
-                    </span>
-
-                </p>
-
-                <p>
-
-                    <strong>Risk Category:</strong>
-
-                    <span id="riskCategory">
-
-                        1
-
-                    </span>
-
-                </p>
-
-            </section>
-
-            <!-- EXPORT -->
-
-            <button
-                class="exportButton"
-                type="button">
-
-                Export
-
-            </button>
-
-        </aside>
-
-    </main>
-
-    <!-- ====================================================== -->
-    <!-- APPLICATION -->
-    <!-- ====================================================== -->
+    <!-- ============================================== -->
+    <!-- APPLICATION                                    -->
+    <!-- ============================================== -->
 
     <script
+
+        type="module"
+
         src="js/app.js">
 
     </script>
