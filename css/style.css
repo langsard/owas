@@ -1,8 +1,6 @@
 /* ========================================================== */
-/* SIT TIGHT                                                  */
-/* style.css                                                  */
+/* SIT TIGHT STYLE                                            */
 /* ========================================================== */
-
 
 
 /* ========================================================== */
@@ -23,6 +21,7 @@
 
 }
 
+
 @font-face {
 
     font-family: "Sarabun";
@@ -38,14 +37,11 @@
 }
 
 
-
 /* ========================================================== */
 /* RESET                                                      */
 /* ========================================================== */
 
-*,
-*::before,
-*::after {
+* {
 
     margin: 0;
 
@@ -56,197 +52,47 @@
 }
 
 
-
-/* ========================================================== */
-/* ROOT                                                       */
-/* ========================================================== */
-
-:root {
-
-    --border-color: #000000;
-
-    --background-color: #ffffff;
-
-    --text-color: #000000;
-
-    --border-width: 3px;
-
-    --radius: 4px;
-
-    --panel-gap: 20px;
-
-    --padding: 20px;
-
-    --header-height: 110px;
-
-    --transition-speed: 0.2s;
-
-}
-
-
-
-/* ========================================================== */
-/* HTML                                                       */
-/* ========================================================== */
-
 html {
 
     width: 100%;
 
     height: 100%;
 
-    font-size: 16px;
-
 }
 
-
-
-/* ========================================================== */
-/* BODY                                                       */
-/* ========================================================== */
 
 body {
 
     width: 100%;
 
-    height: 100%;
+    min-height: 100%;
 
-    overflow: hidden;
-
-    font-family: "Sarabun", sans-serif;
-
-    font-weight: 400;
-
-    background: var(--background-color);
-
-    color: var(--text-color);
-
-}
-
-
-
-/* ========================================================== */
-/* TYPOGRAPHY                                                 */
-/* ========================================================== */
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-
-    font-weight: 700;
-
-    line-height: 1.2;
-
-}
-
-p,
-span,
-label,
-button,
-input {
-
-    font-family: inherit;
-
-    font-weight: 400;
-
-}
-
-
-
-/* ========================================================== */
-/* LINKS                                                      */
-/* ========================================================== */
-
-a {
-
-    color: inherit;
-
-    text-decoration: none;
-
-}
-
-
-
-/* ========================================================== */
-/* IMAGES                                                     */
-/* ========================================================== */
-
-img {
-
-    display: block;
-
-    max-width: 100%;
-
-}
-
-
-
-/* ========================================================== */
-/* FORM ELEMENTS                                              */
-/* ========================================================== */
-
-button,
-input {
-
-    outline: none;
-
-    border: none;
-
-}
-
-
-
-/* ========================================================== */
-/* BUTTON DEFAULT                                              */
-/* ========================================================== */
-
-button {
-
-    cursor: pointer;
-
-}
-
-
-
-/* ========================================================== */
-/* LISTS                                                      */
-/* ========================================================== */
-
-ul,
-ol {
-
-    list-style: none;
-
-}
-
-
-
-/* ========================================================== */
-/* SELECTION                                                  */
-/* ========================================================== */
-
-::selection {
-
-    background: #d9d9d9;
+    background: white;
 
     color: black;
 
+    font-family: "Sarabun", sans-serif;
+
+    overflow: auto;
+
 }
+
+
 
 /* ========================================================== */
 /* HEADER                                                     */
 /* ========================================================== */
 
+
 .header {
 
-    height: var(--header-height);
+    width: 1600px;
 
-    border: var(--border-width) solid var(--border-color);
+    height: 110px;
 
-    border-bottom: none;
+    margin: 20px auto 0;
+
+    border: 3px solid black;
 
     display: flex;
 
@@ -256,43 +102,53 @@ ol {
 
     align-items: center;
 
-    text-align: center;
-
-    background: var(--background-color);
-
 }
+
 
 .header h1 {
 
-    font-size: 2.75rem;
+    font-size: 42px;
 
-    margin-bottom: 6px;
+    font-weight: 700;
 
 }
+
 
 .header p {
 
-    font-size: 1.25rem;
+    font-size: 22px;
 
 }
 
 
 
 /* ========================================================== */
-/* MAIN LAYOUT                                                */
+/* MAIN APPLICATION                                           */
 /* ========================================================== */
+
 
 .mainLayout {
 
-    width: 100%;
+    width: 1600px;
 
-    height: calc(100vh - var(--header-height));
+    height: 820px;
+
+    margin: 0 auto;
 
     display: grid;
 
-    grid-template-columns: 25% 50% 25%;
+    grid-template-columns:
 
-    border: var(--border-width) solid var(--border-color);
+        340px
+
+        1fr
+
+        300px;
+
+
+    border:
+
+        3px solid black;
 
 }
 
@@ -302,53 +158,37 @@ ol {
 /* PANELS                                                     */
 /* ========================================================== */
 
+
 .leftPanel,
 .centerPanel,
 .rightPanel {
 
+
     height: 100%;
 
-    padding: var(--padding);
-
-    overflow: hidden;
-
-    display: flex;
-
-    flex-direction: column;
+    padding: 22px;
 
 }
-
 
 
 .leftPanel,
 .centerPanel {
 
-    border-right: var(--border-width) solid var(--border-color);
+    border-right:
+
+        3px solid black;
 
 }
 
 
 
 /* ========================================================== */
-/* SECTION SPACING                                            */
+/* SECTION HEADER                                             */
 /* ========================================================== */
 
-.uploadSection,
-.fileInformation,
-.loadSection,
-.resultSection {
-
-    margin-bottom: 24px;
-
-}
-
-
-
-/* ========================================================== */
-/* SECTION TITLE                                              */
-/* ========================================================== */
 
 .sectionTitle {
+
 
     display: flex;
 
@@ -356,407 +196,342 @@ ol {
 
     align-items: center;
 
-    margin-bottom: 16px;
+
+    padding-bottom:
+
+        10px;
+
+
+    margin-bottom:
+
+        18px;
+
+
+    border-bottom:
+
+        2px solid black;
+
 
 }
-
 
 
 .sectionTitle h2 {
 
-    font-size: 1.6rem;
+
+    font-size:
+
+        26px;
+
+
+    font-weight:
+
+        700;
+
 
 }
 
 
 
 /* ========================================================== */
-/* HORIZONTAL DIVIDER                                         */
+/* BUTTON                                                     */
 /* ========================================================== */
 
-.divider {
 
-    width: 100%;
+button,
+.chooseFileButton {
 
-    height: 2px;
 
-    background: var(--border-color);
+    height:
 
-    margin: 20px 0;
+        42px;
+
+
+    padding:
+
+        0 18px;
+
+
+    border:
+
+        2px solid black;
+
+
+    background:
+
+        white;
+
+
+    font-family:
+
+        inherit;
+
+
+    font-size:
+
+        18px;
+
+
+    cursor:
+
+        pointer;
+
+
+}
+
+
+button:hover,
+.chooseFileButton:hover {
+
+
+    background:
+
+        #eeeeee;
+
 
 }
 
 
 
 /* ========================================================== */
-/* COMMON BORDER BOX                                          */
+/* LEFT PANEL - ADD PHOTO                                     */
 /* ========================================================== */
 
-.borderBox {
-
-    border: 2px solid var(--border-color);
-
-    border-radius: var(--radius);
-
-}
-
-
-
-/* ========================================================== */
-/* COMMON FLEX HELPERS                                        */
-/* ========================================================== */
-
-.flexRow {
-
-    display: flex;
-
-    align-items: center;
-
-}
-
-
-
-.flexColumn {
-
-    display: flex;
-
-    flex-direction: column;
-
-}
-
-
-
-.flexCenter {
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-}
-
-
-
-/* ========================================================== */
-/* SCROLLBAR (Hidden)                                         */
-/* ========================================================== */
-
-::-webkit-scrollbar {
-
-    width: 0;
-
-    height: 0;
-
-}
-
-/* ========================================================== */
-/* LEFT PANEL                                                 */
-/* ========================================================== */
-
-.leftPanel {
-
-    justify-content: space-between;
-
-}
-
-
-
-/* ========================================================== */
-/* UPLOAD SECTION                                              */
-/* ========================================================== */
 
 .uploadSection {
 
-    display: flex;
 
-    flex-direction: column;
+    display:
+
+        flex;
+
+
+    flex-direction:
+
+        column;
+
 
 }
 
 
-
-/* ========================================================== */
-/* CHOOSE FILE BUTTON                                          */
-/* ========================================================== */
 
 .chooseFileButton {
 
-    display: inline-flex;
 
-    justify-content: center;
+    display:
 
-    align-items: center;
-
-    width: 150px;
-
-    height: 42px;
-
-    border: 2px solid var(--border-color);
-
-    border-radius: var(--radius);
-
-    background: white;
-
-    cursor: pointer;
-
-    user-select: none;
-
-    transition:
-        background var(--transition-speed),
-        color var(--transition-speed);
-
-}
+        flex;
 
 
+    align-items:
 
-.chooseFileButton:hover {
-
-    background: #eeeeee;
-
-}
+        center;
 
 
+    justify-content:
 
-.chooseFileButton:active {
-
-    background: #dddddd;
-
-}
+        center;
 
 
+    width:
 
-.chooseFileButton:focus-visible {
+        150px;
 
-    outline: 2px solid black;
-
-    outline-offset: 2px;
 
 }
 
 
 
 /* ========================================================== */
-/* THUMBNAIL BOX                                               */
+/* THUMBNAIL                                                  */
 /* ========================================================== */
+
 
 .thumbnailBox {
 
-    width: 100%;
 
-    height: 240px;
+    margin-top:
 
-    margin-top: 18px;
+        20px;
 
-    border: 2px solid var(--border-color);
 
-    border-radius: var(--radius);
+    width:
 
-    display: flex;
+        100%;
 
-    justify-content: center;
 
-    align-items: center;
+    height:
 
-    overflow: hidden;
+        230px;
 
-    background: #fafafa;
+
+    border:
+
+        2px solid black;
+
+
+    display:
+
+        flex;
+
+
+    justify-content:
+
+        center;
+
+
+    align-items:
+
+        center;
+
+
+    overflow:
+
+        hidden;
+
 
 }
 
-
-
-/* ========================================================== */
-/* THUMBNAIL IMAGE                                             */
-/* ========================================================== */
 
 .thumbnailBox img {
 
-    width: 100%;
 
-    height: 100%;
+    width:
 
-    object-fit: contain;
-
-}
+        100%;
 
 
+    height:
 
-.thumbnailBox:empty::before {
+        100%;
 
-    content: "No image selected";
 
-    color: #999999;
+    object-fit:
 
-    font-size: 1rem;
+        contain;
+
 
 }
 
 
 
 /* ========================================================== */
-/* FILE INFORMATION                                            */
+/* FILE INFORMATION                                           */
 /* ========================================================== */
+
 
 .fileInformation {
 
-    margin-top: 24px;
 
-    display: flex;
+    margin-top:
 
-    flex-direction: column;
+        25px;
 
-    gap: 14px;
 
 }
 
-
-
-/* ========================================================== */
-/* FILE INFO ROW                                               */
-/* ========================================================== */
 
 .fileInformation p {
 
-    display: flex;
 
-    justify-content: space-between;
+    display:
 
-    align-items: center;
+        flex;
 
-    padding-bottom: 8px;
 
-    border-bottom: 1px solid #d9d9d9;
+    justify-content:
 
-    font-size: 0.95rem;
+        space-between;
 
-    line-height: 1.4;
+
+    margin-bottom:
+
+        15px;
+
+
+    font-size:
+
+        17px;
+
+
+    border-bottom:
+
+        1px solid #cccccc;
+
+
+    padding-bottom:
+
+        5px;
+
 
 }
 
 
-
-.fileInformation strong {
-
-    font-weight: 700;
-
-    margin-right: 10px;
-
-}
-
-
-
-.fileInformation span {
-
-    text-align: right;
-
-    word-break: break-word;
-
-}
-
-
-
-/* ========================================================== */
-/* LONG FILE NAMES                                             */
-/* ========================================================== */
-
-#fileName {
-
-    max-width: 180px;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-
-    white-space: nowrap;
-
-}
-
-
-
-/* ========================================================== */
-/* EMPTY VALUES                                                */
-/* ========================================================== */
-
-#fileName:empty::before,
-#resolution:empty::before,
-#fileSize:empty::before,
-#fileDate:empty::before,
-#fileType:empty::before {
-
-    content: "-";
-
-    color: #888888;
-
-}
 
 /* ========================================================== */
 /* CENTER PANEL                                               */
 /* ========================================================== */
 
+
 .centerPanel {
 
-    display: flex;
 
-    flex-direction: column;
+    display:
+
+        flex;
+
+
+    flex-direction:
+
+        column;
+
 
 }
 
 
 
 /* ========================================================== */
-/* PREVIEW BOX                                                */
+/* POSE PREVIEW                                               */
 /* ========================================================== */
+
 
 .previewBox {
 
-    position: relative;
 
-    flex: 1;
+    width:
 
-    min-height: 0;
+        100%;
 
-    width: 100%;
 
-    border: 2px solid var(--border-color);
+    height:
 
-    border-radius: var(--radius);
+        500px;
 
-    background: #fafafa;
 
-    overflow: hidden;
+    border:
+
+        2px solid black;
+
+
+    position:
+
+        relative;
+
 
 }
 
-
-
-/* ========================================================== */
-/* CANVAS                                                     */
-/* ========================================================== */
 
 .previewBox canvas {
 
-    display: block;
 
-    width: 100%;
+    width:
 
-    height: 100%;
-
-}
+        100%;
 
 
+    height:
 
-/* ========================================================== */
-/* IMAGE (Optional)                                           */
-/* ========================================================== */
+        100%;
 
-.previewBox img {
-
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: contain;
 
 }
 
@@ -766,498 +541,254 @@ ol {
 /* CONFIDENCE BOX                                             */
 /* ========================================================== */
 
+
 .confidenceBox {
 
-    position: absolute;
 
-    right: 16px;
+    position:
 
-    bottom: 16px;
+        absolute;
 
-    display: flex;
 
-    align-items: center;
+    right:
 
-    gap: 10px;
+        15px;
 
-    padding: 10px 14px;
 
-    border: 2px solid var(--border-color);
+    bottom:
 
-    border-radius: var(--radius);
+        15px;
 
-    background: rgba(255, 255, 255, 0.95);
 
-    backdrop-filter: blur(3px);
+    background:
 
-    font-size: 0.95rem;
+        white;
 
-    z-index: 10;
+
+    border:
+
+        2px solid black;
+
+
+    padding:
+
+        8px 15px;
+
+
+    display:
+
+        flex;
+
+
+    gap:
+
+        10px;
+
 
 }
 
 
 
 /* ========================================================== */
-/* CONFIDENCE VALUE                                           */
+/* MEASUREMENTS                                               */
 /* ========================================================== */
 
-.confidenceBox span {
-
-    display: inline-flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    width: 48px;
-
-    height: 32px;
-
-    border: 1px solid var(--border-color);
-
-    border-radius: 3px;
-
-    font-weight: 700;
-
-    background: white;
-
-}
-
-
-
-/* ========================================================== */
-/* EDIT BUTTON                                                */
-/* ========================================================== */
-
-.sectionTitle button {
-
-    width: 90px;
-
-    height: 40px;
-
-    border: 2px solid var(--border-color);
-
-    border-radius: var(--radius);
-
-    background: white;
-
-    transition:
-        background var(--transition-speed),
-        color var(--transition-speed);
-
-}
-
-
-
-.sectionTitle button:hover {
-
-    background: #eeeeee;
-
-}
-
-
-
-.sectionTitle button:active {
-
-    background: #dddddd;
-
-}
-
-
-
-/* ========================================================== */
-/* PREVIEW PLACEHOLDER                                        */
-/* ========================================================== */
-
-.previewBox:empty::before {
-
-    content: "Pose preview";
-
-    position: absolute;
-
-    inset: 0;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    color: #999999;
-
-    font-size: 1.2rem;
-
-}
-
-
-
-/* ========================================================== */
-/* CENTER PANEL SPACING                                       */
-/* ========================================================== */
 
 .measurementGrid {
 
-    margin-top: 18px;
+
+    margin-top:
+
+        20px;
+
+
+    display:
+
+        grid;
+
+
+    grid-template-columns:
+
+        repeat(3,1fr);
+
+
+    gap:
+
+        15px;
+
 
 }
 
 
-
-/* ========================================================== */
-/* CANVAS CURSOR                                              */
-/* ========================================================== */
-
-#poseCanvas {
-
-    cursor: crosshair;
-
-}
-
-
-
-/* ========================================================== */
-/* KEEP CONTENT INSIDE                                        */
-/* ========================================================== */
-
-.centerPanel > * {
-
-    flex-shrink: 0;
-
-}
-
-
-
-.previewBox {
-
-    flex-grow: 1;
-
-}
-
-/* ========================================================== */
-/* MEASUREMENT GRID                                           */
-/* ========================================================== */
-
-.measurementGrid {
-
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 18px;
-
-    margin-top: 18px;
-
-    height: 180px;
-
-}
-
-
-
-/* ========================================================== */
-/* MEASUREMENT CARD                                           */
-/* ========================================================== */
 
 .measurementCard {
 
-    display: flex;
 
-    flex-direction: column;
+    border:
 
-    border: 2px solid var(--border-color);
+        2px solid black;
 
-    border-radius: var(--radius);
 
-    padding: 16px;
+    padding:
 
-    background: white;
+        15px;
+
 
 }
 
 
-
-/* ========================================================== */
-/* CARD TITLE                                                 */
-/* ========================================================== */
 
 .measurementCard h3 {
 
-    text-align: center;
 
-    font-size: 1.2rem;
+    text-align:
 
-    font-weight: 700;
+        center;
 
-    margin-bottom: 18px;
 
-    padding-bottom: 10px;
+    font-size:
 
-    border-bottom: 1px solid #cccccc;
+        22px;
+
+
+    border-bottom:
+
+        1px solid black;
+
+
+    padding-bottom:
+
+        8px;
+
+
+    margin-bottom:
+
+        15px;
+
 
 }
 
 
-
-/* ========================================================== */
-/* MEASUREMENT ROW                                            */
-/* ========================================================== */
 
 .measurementRow {
 
-    display: flex;
 
-    justify-content: space-between;
+    display:
 
-    align-items: center;
+        flex;
 
-    margin-bottom: 14px;
+
+    justify-content:
+
+        space-between;
+
+
+    margin-bottom:
+
+        12px;
+
 
 }
 
-
-
-/* ========================================================== */
-/* LAST ROW                                                   */
-/* ========================================================== */
-
-.measurementRow:last-child {
-
-    margin-bottom: 0;
-
-}
-
-
-
-/* ========================================================== */
-/* LABEL                                                      */
-/* ========================================================== */
-
-.measurementRow span:first-child {
-
-    font-size: 1rem;
-
-}
-
-
-
-/* ========================================================== */
-/* VALUE BOX                                                  */
-/* ========================================================== */
 
 .valueBox {
 
-    display: inline-flex;
 
-    justify-content: center;
+    width:
 
-    align-items: center;
+        50px;
 
-    width: 56px;
 
-    height: 34px;
+    height:
 
-    border: 1px solid var(--border-color);
+        30px;
 
-    border-radius: 3px;
 
-    background: white;
+    border:
 
-    font-weight: 700;
+        1px solid black;
+
 
 }
 
 
-
-/* ========================================================== */
-/* VALUE COLORS                                               */
-/* ========================================================== */
-
-.valueGood {
-
-    background: #8BC34A;
-
-    color: white;
-
-}
-
-
-
-.valueWarning {
-
-    background: #FFC107;
-
-    color: black;
-
-}
-
-
-
-.valueDanger {
-
-    background: #F44336;
-
-    color: white;
-
-}
-
-
-
-/* ========================================================== */
-/* EMPTY VALUE                                                */
-/* ========================================================== */
-
-.valueBox:empty::before {
-
-    content: "--";
-
-    color: #777777;
-
-}
-
-
-
-/* ========================================================== */
-/* CARD HOVER                                                 */
-/* ========================================================== */
-
-.measurementCard:hover {
-
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-
-}
-
-
-
-/* ========================================================== */
-/* CARD TRANSITION                                            */
-/* ========================================================== */
-
-.measurementCard {
-
-    transition:
-
-        box-shadow var(--transition-speed),
-
-        transform var(--transition-speed);
-
-}
-
-
-
-/* ========================================================== */
-/* ACTIVE CARD                                                */
-/* ========================================================== */
-
-.measurementCard.active {
-
-    border-color: #0066cc;
-
-}
-
-
-
-/* ========================================================== */
-/* SMALL SCREENS                                              */
-/* ========================================================== */
-
-@media (max-width: 1100px) {
-
-    .measurementGrid {
-
-        grid-template-columns: 1fr;
-
-        height: auto;
-
-    }
-
-}
 
 /* ========================================================== */
 /* RIGHT PANEL                                                */
 /* ========================================================== */
 
-.rightPanel {
-
-    display: flex;
-
-    flex-direction: column;
-
-}
-
-
-
-/* ========================================================== */
-/* LOAD SECTION                                               */
-/* ========================================================== */
-
-.loadSection {
-
-    margin-bottom: 28px;
-
-}
-
-
-
-.loadSection h2,
-.resultSection h2 {
-
-    font-size: 1.6rem;
-
-    margin-bottom: 18px;
-
-}
-
-
 
 .loadSection label {
 
-    display: flex;
 
-    align-items: center;
+    display:
 
-    gap: 10px;
+        block;
 
-    margin-bottom: 14px;
 
-    cursor: pointer;
+    margin-bottom:
 
-    font-size: 1rem;
+        18px;
+
+
+    font-size:
+
+        18px;
+
+
+}
+
+
+.loadSection input {
+
+
+    width:
+
+        18px;
+
+
+    height:
+
+        18px;
+
 
 }
 
 
 
 /* ========================================================== */
-/* RADIO BUTTON                                               */
+/* RESULT                                                     */
 /* ========================================================== */
 
-.loadSection input[type="radio"] {
-
-    width: 18px;
-
-    height: 18px;
-
-    accent-color: black;
-
-}
-
-
-
-/* ========================================================== */
-/* RESULT SECTION                                             */
-/* ========================================================== */
 
 .resultSection {
 
-    flex: 1;
 
-    border: 2px solid var(--border-color);
+    margin-top:
 
-    border-radius: var(--radius);
+        30px;
 
-    padding: 18px;
 
-    background: white;
+}
+
+
+.resultSection h2 {
+
+
+    font-size:
+
+        26px;
+
+
+    border-bottom:
+
+        2px solid black;
+
+
+    padding-bottom:
+
+        10px;
+
 
 }
 
@@ -1265,246 +796,98 @@ ol {
 
 .resultSection p {
 
-    display: flex;
 
-    justify-content: space-between;
+    display:
 
-    align-items: center;
+        flex;
 
-    margin-bottom: 18px;
 
-    font-size: 1rem;
+    justify-content:
+
+        space-between;
+
+
+    margin-top:
+
+        20px;
+
+
+    font-size:
+
+        20px;
+
 
 }
 
 
-
-.resultSection strong {
-
-    font-weight: 700;
-
-}
-
-
-
-/* ========================================================== */
-/* RESULT VALUE                                               */
-/* ========================================================== */
 
 .resultSection span {
 
-    display: inline-flex;
 
-    justify-content: center;
+    font-weight:
 
-    align-items: center;
+        700;
 
-    min-width: 60px;
-
-    height: 34px;
-
-    border: 1px solid var(--border-color);
-
-    border-radius: 3px;
-
-    font-weight: 700;
 
 }
 
 
 
 /* ========================================================== */
-/* EXPORT BUTTON                                              */
+/* EXPORT                                                     */
 /* ========================================================== */
+
 
 .exportButton {
 
-    width: 100%;
 
-    height: 48px;
+    width:
 
-    margin-top: 20px;
-
-    border: 2px solid var(--border-color);
-
-    border-radius: var(--radius);
-
-    background: white;
-
-    font-size: 1rem;
-
-    font-weight: 700;
-
-    transition:
-
-        background var(--transition-speed),
-
-        transform var(--transition-speed);
-
-}
+        100%;
 
 
+    margin-top:
 
-.exportButton:hover {
-
-    background: #eeeeee;
-
-}
+        40px;
 
 
+    height:
 
-.exportButton:active {
+        50px;
 
-    transform: scale(0.98);
+
+    font-size:
+
+        20px;
+
 
 }
 
 
 
 /* ========================================================== */
-/* DISABLED BUTTON                                            */
+/* TABLET / IPAD LANDSCAPE                                    */
 /* ========================================================== */
 
-button:disabled,
-.chooseFileButton.disabled {
 
-    opacity: 0.5;
-
-    cursor: not-allowed;
-
-}
+@media(max-width:1600px){
 
 
-
-/* ========================================================== */
-/* INPUTS                                                     */
-/* ========================================================== */
-
-input {
-
-    font-size: inherit;
-
-}
-
-
-
-/* ========================================================== */
-/* FOCUS                                                      */
-/* ========================================================== */
-
-button:focus-visible,
-.chooseFileButton:focus-visible,
-input:focus-visible {
-
-    outline: 2px solid black;
-
-    outline-offset: 2px;
-
-}
-
-
-
-/* ========================================================== */
-/* RESPONSIVE                                                 */
-/* ========================================================== */
-
-@media (max-width: 1200px) {
-
-    html,
-    body {
-
-        overflow: auto;
-
-    }
-
+    .header,
     .mainLayout {
 
-        grid-template-columns: 1fr;
 
-        height: auto;
+        margin-left:
 
-    }
+            20px;
 
-    .leftPanel,
-    .centerPanel {
 
-        border-right: none;
+        margin-right:
 
-        border-bottom: var(--border-width) solid var(--border-color);
+            20px;
+
 
     }
 
-    .previewBox {
-
-        height: 450px;
-
-        flex: none;
-
-    }
 
 }
-
-
-
-/* ========================================================== */
-/* SMALL DEVICES                                              */
-/* ========================================================== */
-
-@media (max-width: 768px) {
-
-    .header {
-
-        height: auto;
-
-        padding: 20px;
-
-    }
-
-    .header h1 {
-
-        font-size: 2rem;
-
-    }
-
-    .header p {
-
-        font-size: 1rem;
-
-    }
-
-    .sectionTitle {
-
-        flex-direction: column;
-
-        align-items: flex-start;
-
-        gap: 12px;
-
-    }
-
-    .thumbnailBox {
-
-        height: 180px;
-
-    }
-
-}
-
-
-
-/* ========================================================== */
-/* PRINT                                                      */
-/* ========================================================== */
-
-@media print {
-
-    button,
-
-    .chooseFileButton {
-
-        display: none;
-
-    }
-
-}
-
