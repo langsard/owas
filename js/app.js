@@ -7,25 +7,62 @@
 
 
 /* ==========================================================
- * STATE
+ * CONFIGURATION
  * ========================================================== */
 
-const applicationState = {
+const CONFIG = {
+
+    LANDMARK_RADIUS: 8,
+
+    LANDMARK_COLOR: "#ff0000",
+
+    LANDMARK_SELECTED_COLOR: "#0080ff",
+
+    LANDMARK_BORDER_COLOR: "#000000",
+
+    LANDMARK_BORDER_WIDTH: 2
+
+};
+
+
+
+/* ==========================================================
+ * APPLICATION STATE
+ * ========================================================== */
+
+const state = {
 
     image: null,
 
     imageFile: null,
 
-    editMode: false,
 
-    landmarks: [
 
-        {
-            x: 0,
-            y: 0
-        }
+    imageViewport: {
 
-    ]
+        x: 0,
+
+        y: 0,
+
+        width: 0,
+
+        height: 0,
+
+        scale: 1
+
+    },
+
+
+
+    landmarks: [],
+
+
+
+    selectedLandmark: -1,
+
+
+
+    editMode: false
 
 };
 
@@ -35,43 +72,59 @@ const applicationState = {
  * DOM
  * ========================================================== */
 
-const elements = {
+const dom = {
 
     photoInput:
 
         document.getElementById("photoInput"),
 
+
+
     thumbnail:
 
         document.getElementById("thumbnail"),
+
+
 
     fileName:
 
         document.getElementById("fileName"),
 
+
+
     resolution:
 
         document.getElementById("resolution"),
+
+
 
     fileSize:
 
         document.getElementById("fileSize"),
 
+
+
     fileDate:
 
         document.getElementById("fileDate"),
+
+
 
     fileType:
 
         document.getElementById("fileType"),
 
+
+
     canvas:
 
         document.getElementById("poseCanvas"),
 
+
+
     editButton:
 
-        document.querySelector(".centerPanel .sectionTitle button")
+        document.querySelector(".centerPanel button")
 
 };
 
@@ -83,7 +136,7 @@ const elements = {
 
 const context =
 
-    elements.canvas.getContext("2d");
+    dom.canvas.getContext("2d");
 
 
 
@@ -97,7 +150,9 @@ initialize();
 
 function initialize() {
 
-    bindEvents();
+    registerEvents();
+
+    resizeCanvas();
 
     clearCanvas();
 
@@ -106,22 +161,22 @@ function initialize() {
 
 
 /* ==========================================================
- * EVENTS
+ * EVENT REGISTRATION
  * ========================================================== */
 
-function bindEvents() {
+function registerEvents() {
 
-    elements.photoInput.addEventListener(
+    dom.photoInput.addEventListener(
 
         "change",
 
-        handlePhotoSelection
+        handlePhotoUpload
 
     );
 
 
 
-    elements.editButton.addEventListener(
+    dom.editButton.addEventListener(
 
         "click",
 
@@ -131,11 +186,21 @@ function bindEvents() {
 
 
 
-    elements.canvas.addEventListener(
+    dom.canvas.addEventListener(
 
         "click",
 
         handleCanvasClick
+
+    );
+
+
+
+    window.addEventListener(
+
+        "resize",
+
+        resizeCanvas
 
     );
 
@@ -144,10 +209,38 @@ function bindEvents() {
 
 
 /* ==========================================================
- * PHOTO SELECTION
+ * CANVAS SIZE
  * ========================================================== */
 
-function handlePhotoSelection(event) {
+function resizeCanvas() {
+
+    const rectangle =
+
+        dom.canvas.getBoundingClientRect();
+
+
+
+    dom.canvas.width =
+
+        rectangle.width;
+
+
+
+    dom.canvas.height =
+
+        rectangle.height;
+
+
+
+    redrawCanvas();
+
+}
+
+/* ==========================================================
+ * PHOTO UPLOAD
+ * ========================================================== */
+
+function handlePhotoUpload(event) {
 
     const file =
 
@@ -163,7 +256,7 @@ function handlePhotoSelection(event) {
 
 
 
-    applicationState.imageFile = file;
+    state.imageFile = file;
 
 
 
@@ -171,25 +264,69 @@ function handlePhotoSelection(event) {
 
 
 
-    const reader = new FileReader();
+    const reader =
+
+        new FileReader();
 
 
 
-    reader.onload = function (loadEvent) {
+    reader.onload =
 
-        const image = new Image();
+        function (loadEvent) {
+
+            loadImage(
+
+                loadEvent.target.result
+
+            );
+
+        };
 
 
 
-        image.onload = function () {
+    reader.readAsDataURL(file);
 
-            applicationState.image = image;
+}
 
-            updateThumbnail(loadEvent.target.result);
 
-            updateResolution(image);
 
-            initializeLandmark(image);
+/* ==========================================================
+ * IMAGE LOADING
+ * ========================================================== */
+
+function loadImage(source) {
+
+    const image =
+
+        new Image();
+
+
+
+    image.onload =
+
+        function () {
+
+            state.image = image;
+
+
+
+            updateThumbnail(source);
+
+
+
+            updateResolution(
+
+                image.width,
+
+                image.height
+
+            );
+
+
+
+            createDefaultLandmarks();
+
+
 
             redrawCanvas();
 
@@ -197,13 +334,19 @@ function handlePhotoSelection(event) {
 
 
 
-        image.src = loadEvent.target.result;
+    image.src = source;
 
-    };
+}
 
 
 
-    reader.readAsDataURL(file);
+/* ==========================================================
+ * THUMBNAIL
+ * ========================================================== */
+
+function updateThumbnail(source) {
+
+    dom.thumbnail.src = source;
 
 }
 
@@ -215,19 +358,29 @@ function handlePhotoSelection(event) {
 
 function updateFileInformation(file) {
 
-    elements.fileName.textContent =
+    dom.fileName.textContent =
 
         file.name;
 
 
 
-    elements.fileSize.textContent =
+    dom.fileSize.textContent =
 
-        `${(file.size / 1024 / 1024).toFixed(2)} MB`;
+        formatFileSize(
+
+            file.size
+
+        );
 
 
 
-    elements.fileDate.textContent =
+    dom.fileType.textContent =
+
+        file.type;
+
+
+
+    dom.fileDate.textContent =
 
         new Date(
 
@@ -235,45 +388,300 @@ function updateFileInformation(file) {
 
         ).toLocaleString();
 
-
-
-    elements.fileType.textContent =
-
-        file.type;
-
 }
 
 
 
-function updateResolution(image) {
+function updateResolution(
 
-    elements.resolution.textContent =
+    width,
 
-        `${image.width} × ${image.height}`;
+    height
 
-}
+) {
 
+    dom.resolution.textContent =
 
-
-function updateThumbnail(source) {
-
-    elements.thumbnail.src = source;
+        `${width} × ${height}`;
 
 }
 
 
 
 /* ==========================================================
- * LANDMARK
+ * FILE SIZE
  * ========================================================== */
 
-function initializeLandmark(image) {
+function formatFileSize(bytes) {
 
-    applicationState.landmarks[0] = {
+    const megabytes =
 
-        x: image.width / 2,
+        bytes /
 
-        y: image.height / 2
+        1024 /
+
+        1024;
+
+
+
+    return
+
+        `${megabytes.toFixed(2)} MB`;
+
+}
+
+
+
+/* ==========================================================
+ * DEFAULT LANDMARKS
+ * ========================================================== */
+
+function createDefaultLandmarks() {
+
+    state.landmarks = [];
+
+
+
+    const columns = 4;
+
+    const rows = 5;
+
+
+
+    const spacingX =
+
+        state.image.width /
+
+        (columns + 1);
+
+
+
+    const spacingY =
+
+        state.image.height /
+
+        (rows + 1);
+
+
+
+    let index = 0;
+
+
+
+    for (
+
+        let row = 1;
+
+        row <= rows;
+
+        row++
+
+    ) {
+
+        for (
+
+            let column = 1;
+
+            column <= columns;
+
+            column++
+
+        ) {
+
+            if (
+
+                index >= 17
+
+            ) {
+
+                break;
+
+            }
+
+
+
+            state.landmarks.push({
+
+                x:
+
+                    column *
+
+                    spacingX,
+
+
+
+                y:
+
+                    row *
+
+                    spacingY,
+
+
+
+                visible: true
+
+            });
+
+
+
+            index++;
+
+        }
+
+    }
+
+
+
+    state.selectedLandmark = -1;
+
+}
+
+
+
+/* ==========================================================
+ * PLACEHOLDER
+ * ========================================================== */
+
+/*
+
+MoveNet will later replace
+
+createDefaultLandmarks()
+
+with
+
+state.landmarks = movenetResult.keypoints;
+
+Nothing else in the application
+will need to change.
+
+*/
+
+/* ==========================================================
+ * REDRAW
+ * ========================================================== */
+
+function redrawCanvas() {
+
+    clearCanvas();
+
+
+
+    if (!state.image) {
+
+        return;
+
+    }
+
+
+
+    calculateImageViewport();
+
+    drawImage();
+
+    drawLandmarks();
+
+}
+
+
+
+/* ==========================================================
+ * CLEAR CANVAS
+ * ========================================================== */
+
+function clearCanvas() {
+
+    context.clearRect(
+
+        0,
+
+        0,
+
+        dom.canvas.width,
+
+        dom.canvas.height
+
+    );
+
+}
+
+
+
+/* ==========================================================
+ * IMAGE VIEWPORT
+ * ========================================================== */
+
+function calculateImageViewport() {
+
+    const canvasWidth =
+
+        dom.canvas.width;
+
+
+
+    const canvasHeight =
+
+        dom.canvas.height;
+
+
+
+    const imageWidth =
+
+        state.image.width;
+
+
+
+    const imageHeight =
+
+        state.image.height;
+
+
+
+    const scale = Math.min(
+
+        canvasWidth / imageWidth,
+
+        canvasHeight / imageHeight
+
+    );
+
+
+
+    const drawWidth =
+
+        imageWidth * scale;
+
+
+
+    const drawHeight =
+
+        imageHeight * scale;
+
+
+
+    const offsetX =
+
+        (canvasWidth - drawWidth) / 2;
+
+
+
+    const offsetY =
+
+        (canvasHeight - drawHeight) / 2;
+
+
+
+    state.imageViewport = {
+
+        x: offsetX,
+
+        y: offsetY,
+
+        width: drawWidth,
+
+        height: drawHeight,
+
+        scale: scale
 
     };
 
@@ -282,36 +690,276 @@ function initializeLandmark(image) {
 
 
 /* ==========================================================
- * EDIT MODE
+ * DRAW IMAGE
  * ========================================================== */
 
-function toggleEditMode() {
+function drawImage() {
 
-    applicationState.editMode =
+    const viewport =
 
-        !applicationState.editMode;
+        state.imageViewport;
 
 
 
-    elements.editButton.textContent =
+    context.drawImage(
 
-        applicationState.editMode
+        state.image,
 
-            ? "Editing..."
+        viewport.x,
 
-            : "Edit";
+        viewport.y,
+
+        viewport.width,
+
+        viewport.height
+
+    );
 
 }
 
 
 
-function handleCanvasClick(event) {
+/* ==========================================================
+ * IMAGE → CANVAS
+ * ========================================================== */
+
+function imageToCanvas(point) {
+
+    return {
+
+        x:
+
+            state.imageViewport.x +
+
+            point.x *
+
+            state.imageViewport.scale,
+
+
+
+        y:
+
+            state.imageViewport.y +
+
+            point.y *
+
+            state.imageViewport.scale
+
+    };
+
+}
+
+
+
+/* ==========================================================
+ * CANVAS → IMAGE
+ * ========================================================== */
+
+function canvasToImage(point) {
+
+    return {
+
+        x:
+
+            (point.x -
+
+                state.imageViewport.x)
+
+            /
+
+            state.imageViewport.scale,
+
+
+
+        y:
+
+            (point.y -
+
+                state.imageViewport.y)
+
+            /
+
+            state.imageViewport.scale
+
+    };
+
+}
+
+
+
+/* ==========================================================
+ * GET CANVAS POSITION
+ * ========================================================== */
+
+function getCanvasPosition(event) {
+
+    const rectangle =
+
+        dom.canvas.getBoundingClientRect();
+
+
+
+    return {
+
+        x:
+
+            (event.clientX - rectangle.left) *
+
+            (dom.canvas.width / rectangle.width),
+
+
+
+        y:
+
+            (event.clientY - rectangle.top) *
+
+            (dom.canvas.height / rectangle.height)
+
+    };
+
+}
+
+
+
+/* ==========================================================
+ * IMAGE BOUNDARY
+ * ========================================================== */
+
+function pointInsideImage(point) {
+
+    const viewport =
+
+        state.imageViewport;
+
+
+
+    return (
+
+        point.x >= viewport.x &&
+
+        point.x <= viewport.x + viewport.width &&
+
+        point.y >= viewport.y &&
+
+        point.y <= viewport.y + viewport.height
+
+    );
+
+}
+
+
+
+/* ==========================================================
+ * DISTANCE
+ * ========================================================== */
+
+function distance(
+
+    pointA,
+
+    pointB
+
+) {
+
+    const dx =
+
+        pointA.x - pointB.x;
+
+
+
+    const dy =
+
+        pointA.y - pointB.y;
+
+
+
+    return Math.sqrt(
+
+        dx * dx +
+
+        dy * dy
+
+    );
+
+}
+
+
+
+/* ==========================================================
+ * FUTURE
+ * ========================================================== */
+
+/*
+
+Every landmark is now stored in
+
+IMAGE COORDINATES.
+
+Nothing depends on the canvas size.
+
+Therefore:
+
+Resize Window
+↓
+
+Canvas changes size
+↓
+
+ImageViewport recalculated
+↓
+
+Landmarks remain correct.
+
+This is exactly how MoveNet returns
+keypoints and prevents distortion.
+
+*/
+
+/* ==========================================================
+ * LANDMARK DRAWING
+ * ========================================================== */
+
+function drawLandmarks() {
+
+    for (
+
+        let index = 0;
+
+        index < state.landmarks.length;
+
+        index++
+
+    ) {
+
+        drawLandmark(
+
+            index,
+
+            state.landmarks[index]
+
+        );
+
+    }
+
+}
+
+
+
+/* ==========================================================
+ * DRAW SINGLE LANDMARK
+ * ========================================================== */
+
+function drawLandmark(
+
+    index,
+
+    landmark
+
+) {
 
     if (
 
-        !applicationState.editMode ||
-
-        !applicationState.image
+        !landmark.visible
 
     ) {
 
@@ -323,161 +971,25 @@ function handleCanvasClick(event) {
 
     const canvasPoint =
 
-        getCanvasCoordinates(event);
+        imageToCanvas(
 
+            landmark
 
+        );
 
-    applicationState.landmarks[0] = {
 
-        x: canvasPoint.x,
-
-        y: canvasPoint.y
-
-    };
-
-
-
-    redrawCanvas();
-
-}
-
-
-
-/* ==========================================================
- * COORDINATE CONVERSION
- * ========================================================== */
-
-function getCanvasCoordinates(event) {
-
-    const rect =
-
-        elements.canvas.getBoundingClientRect();
-
-
-
-    const x =
-
-        (event.clientX - rect.left) *
-
-        (elements.canvas.width / rect.width);
-
-
-
-    const y =
-
-        (event.clientY - rect.top) *
-
-        (elements.canvas.height / rect.height);
-
-
-
-    return {
-
-        x,
-
-        y
-
-    };
-
-}
-
-
-
-/* ==========================================================
- * DRAWING
- * ========================================================== */
-
-function redrawCanvas() {
-
-    clearCanvas();
-
-
-
-    if (
-
-        !applicationState.image
-
-    ) {
-
-        return;
-
-    }
-
-
-
-    drawImage();
-
-    drawLandmarks();
-
-}
-
-
-
-function clearCanvas() {
-
-    context.clearRect(
-
-        0,
-
-        0,
-
-        elements.canvas.width,
-
-        elements.canvas.height
-
-    );
-
-}
-
-
-
-function drawImage() {
-
-    context.drawImage(
-
-        applicationState.image,
-
-        0,
-
-        0,
-
-        elements.canvas.width,
-
-        elements.canvas.height
-
-    );
-
-}
-
-
-
-function drawLandmarks() {
-
-    applicationState.landmarks.forEach(
-
-        landmark => {
-
-            drawLandmark(landmark);
-
-        }
-
-    );
-
-}
-
-
-
-function drawLandmark(landmark) {
 
     context.beginPath();
 
+
+
     context.arc(
 
-        landmark.x,
+        canvasPoint.x,
 
-        landmark.y,
+        canvasPoint.y,
 
-        8,
+        CONFIG.LANDMARK_RADIUS,
 
         0,
 
@@ -489,7 +1001,11 @@ function drawLandmark(landmark) {
 
     context.fillStyle =
 
-        "#ff0000";
+        index === state.selectedLandmark
+
+            ? CONFIG.LANDMARK_SELECTED_COLOR
+
+            : CONFIG.LANDMARK_COLOR;
 
 
 
@@ -497,11 +1013,15 @@ function drawLandmark(landmark) {
 
 
 
-    context.lineWidth = 2;
+    context.lineWidth =
+
+        CONFIG.LANDMARK_BORDER_WIDTH;
+
+
 
     context.strokeStyle =
 
-        "#000000";
+        CONFIG.LANDMARK_BORDER_COLOR;
 
 
 
@@ -512,37 +1032,1009 @@ function drawLandmark(landmark) {
 
 
 /* ==========================================================
- * FUTURE PLACEHOLDERS
+ * LANDMARK SELECTION
+ * ========================================================== */
+
+function selectLandmark(
+
+    canvasPoint
+
+) {
+
+    let selectedIndex = -1;
+
+
+
+    let nearestDistance =
+
+        Number.MAX_VALUE;
+
+
+
+    for (
+
+        let index = 0;
+
+        index < state.landmarks.length;
+
+        index++
+
+    ) {
+
+        const landmark =
+
+            state.landmarks[index];
+
+
+
+        if (
+
+            !landmark.visible
+
+        ) {
+
+            continue;
+
+        }
+
+
+
+        const point =
+
+            imageToCanvas(
+
+                landmark
+
+            );
+
+
+
+        const currentDistance =
+
+            distance(
+
+                canvasPoint,
+
+                point
+
+            );
+
+
+
+        if (
+
+            currentDistance <
+
+            CONFIG.LANDMARK_RADIUS * 2 &&
+
+            currentDistance < nearestDistance
+
+        ) {
+
+            nearestDistance =
+
+                currentDistance;
+
+
+
+            selectedIndex =
+
+                index;
+
+        }
+
+    }
+
+
+
+    state.selectedLandmark =
+
+        selectedIndex;
+
+
+
+    redrawCanvas();
+
+
+
+    return (
+
+        selectedIndex !== -1
+
+    );
+
+}
+
+
+
+/* ==========================================================
+ * GET SELECTED LANDMARK
+ * ========================================================== */
+
+function getSelectedLandmark() {
+
+    if (
+
+        state.selectedLandmark < 0
+
+    ) {
+
+        return null;
+
+    }
+
+
+
+    return
+
+        state.landmarks[
+
+            state.selectedLandmark
+
+        ];
+
+}
+
+
+
+/* ==========================================================
+ * CLEAR SELECTION
+ * ========================================================== */
+
+function clearLandmarkSelection() {
+
+    state.selectedLandmark = -1;
+
+}
+
+
+
+/* ==========================================================
+ * SELECT ALL
+ * ========================================================== */
+
+function selectAllLandmarks() {
+
+    for (
+
+        let index = 0;
+
+        index < state.landmarks.length;
+
+        index++
+
+    ) {
+
+        state.landmarks[index].visible = true;
+
+    }
+
+}
+
+
+
+/* ==========================================================
+ * LANDMARK COUNT
+ * ========================================================== */
+
+function landmarkCount() {
+
+    return
+
+        state.landmarks.length;
+
+}
+
+
+
+/* ==========================================================
+ * FUTURE
  * ========================================================== */
 
 /*
 
-Future pipeline:
+Current
+
+17 red dots
+
+↓
+
+Click dot
+
+↓
+
+Dot becomes blue
+
+↓
+
+selectedLandmark = index
+
+
+
+Next section
+
+Click canvas again
+
+↓
+
+Selected landmark moves
+
+↓
+
+Skeleton redraw
+
+↓
+
+Angles recalculate
+
+*/
+
+/* ==========================================================
+ * EDIT MODE
+ * ========================================================== */
+
+function toggleEditMode() {
+
+    state.editMode =
+
+        !state.editMode;
+
+
+
+    if (
+
+        !state.editMode
+
+    ) {
+
+        clearLandmarkSelection();
+
+    }
+
+
+
+    updateEditButton();
+
+    redrawCanvas();
+
+}
+
+
+
+/* ==========================================================
+ * EDIT BUTTON
+ * ========================================================== */
+
+function updateEditButton() {
+
+    dom.editButton.textContent =
+
+        state.editMode
+
+            ? "Finish"
+
+            : "Edit";
+
+}
+
+
+
+/* ==========================================================
+ * CANVAS CLICK
+ * ========================================================== */
+
+function handleCanvasClick(event) {
+
+    if (
+
+        !state.image
+
+    ) {
+
+        return;
+
+    }
+
+
+
+    const canvasPoint =
+
+        getCanvasPosition(event);
+
+
+
+    if (
+
+        !pointInsideImage(canvasPoint)
+
+    ) {
+
+        return;
+
+    }
+
+
+
+    /* ------------------------------------------
+     * Normal Mode
+     * ------------------------------------------ */
+
+    if (
+
+        !state.editMode
+
+    ) {
+
+        return;
+
+    }
+
+
+
+    /* ------------------------------------------
+     * Nothing Selected
+     * ------------------------------------------ */
+
+    if (
+
+        state.selectedLandmark === -1
+
+    ) {
+
+        selectLandmark(
+
+            canvasPoint
+
+        );
+
+
+
+        return;
+
+    }
+
+
+
+    /* ------------------------------------------
+     * Landmark Selected
+     * ------------------------------------------ */
+
+    moveSelectedLandmark(
+
+        canvasPoint
+
+    );
+
+}
+
+
+
+/* ==========================================================
+ * MOVE LANDMARK
+ * ========================================================== */
+
+function moveSelectedLandmark(
+
+    canvasPoint
+
+) {
+
+    const imagePoint =
+
+        canvasToImage(
+
+            canvasPoint
+
+        );
+
+
+
+    state.landmarks[
+
+        state.selectedLandmark
+
+    ].x = imagePoint.x;
+
+
+
+    state.landmarks[
+
+        state.selectedLandmark
+
+    ].y = imagePoint.y;
+
+
+
+    redrawCanvas();
+
+}
+
+
+
+/* ==========================================================
+ * REDRAW
+ * ========================================================== */
+
+const previousRedrawCanvas = redrawCanvas;
+
+
+
+redrawCanvas = function () {
+
+    clearCanvas();
+
+
+
+    if (
+
+        !state.image
+
+    ) {
+
+        return;
+
+    }
+
+
+
+    calculateImageViewport();
+
+
+
+    drawImage();
+
+
+
+    drawLandmarks();
+
+
+
+    drawSelectionHint();
+
+};
+
+
+
+/* ==========================================================
+ * DRAW SELECTION HINT
+ * ========================================================== */
+
+function drawSelectionHint() {
+
+    if (
+
+        !state.editMode
+
+    ) {
+
+        return;
+
+    }
+
+
+
+    context.save();
+
+
+
+    context.font =
+
+        "18px Sarabun";
+
+
+
+    context.fillStyle =
+
+        "#000000";
+
+
+
+    const message =
+
+        state.selectedLandmark === -1
+
+            ? "Edit Mode: Select a landmark"
+
+            : "Edit Mode: Click new location";
+
+
+
+    context.fillText(
+
+        message,
+
+        15,
+
+        30
+
+    );
+
+
+
+    context.restore();
+
+}
+
+
+
+/* ==========================================================
+ * DELETE KEY (OPTIONAL)
+ * ========================================================== */
+
+window.addEventListener(
+
+    "keydown",
+
+    function (event) {
+
+        if (
+
+            event.key === "Escape"
+
+        ) {
+
+            clearLandmarkSelection();
+
+            redrawCanvas();
+
+        }
+
+    }
+
+);
+
+
+
+/* ==========================================================
+ * FUTURE PLACEHOLDER
+ * ========================================================== */
+
+/*
+
+Current workflow
 
 Upload
 
 ↓
 
-MoveNet
+17 landmarks
 
 ↓
 
-Keypoints
+Edit
 
 ↓
 
-Skeleton
+Click landmark
 
 ↓
 
-Angles
+Blue landmark
 
 ↓
 
-OWAS
+Click image
 
 ↓
 
-Export
+Landmark moves
+
+↓
+
+Canvas redraw
+
+
+
+Later
+
+↓
+
+Skeleton redraw
+
+↓
+
+Joint angles
+
+↓
+
+OWAS score
+
+↓
+
+Export PDF
 
 */
+
+/* ==========================================================
+ * SKELETON
+ * ========================================================== */
+
+const SKELETON_CONNECTIONS = [
+
+    [0, 1],
+    [0, 2],
+    [1, 3],
+    [2, 4],
+
+    [5, 6],
+
+    [5, 7],
+    [7, 9],
+
+    [6, 8],
+    [8, 10],
+
+    [5, 11],
+    [6, 12],
+
+    [11, 12],
+
+    [11, 13],
+    [13, 15],
+
+    [12, 14],
+    [14, 16]
+
+];
+
+
+
+/* ==========================================================
+ * DRAW LANDMARKS
+ * ========================================================== */
+
+function drawLandmarks() {
+
+    drawSkeleton();
+
+
+
+    for (
+
+        let index = 0;
+
+        index < state.landmarks.length;
+
+        index++
+
+    ) {
+
+        drawLandmark(
+
+            index,
+
+            state.landmarks[index]
+
+        );
+
+    }
+
+}
+
+
+
+/* ==========================================================
+ * DRAW SKELETON
+ * ========================================================== */
+
+function drawSkeleton() {
+
+    context.save();
+
+
+
+    context.strokeStyle = "#00AA00";
+
+    context.lineWidth = 3;
+
+
+
+    for (
+
+        const connection of SKELETON_CONNECTIONS
+
+    ) {
+
+        const first =
+
+            state.landmarks[connection[0]];
+
+        const second =
+
+            state.landmarks[connection[1]];
+
+
+
+        if (
+
+            !first ||
+
+            !second ||
+
+            !first.visible ||
+
+            !second.visible
+
+        ) {
+
+            continue;
+
+        }
+
+
+
+        const point1 =
+
+            imageToCanvas(first);
+
+
+
+        const point2 =
+
+            imageToCanvas(second);
+
+
+
+        context.beginPath();
+
+        context.moveTo(
+
+            point1.x,
+
+            point1.y
+
+        );
+
+        context.lineTo(
+
+            point2.x,
+
+            point2.y
+
+        );
+
+        context.stroke();
+
+    }
+
+
+
+    context.restore();
+
+}
+
+
+
+/* ==========================================================
+ * DRAW SINGLE LANDMARK
+ * ========================================================== */
+
+function drawLandmark(
+
+    index,
+
+    landmark
+
+) {
+
+    if (
+
+        !landmark.visible
+
+    ) {
+
+        return;
+
+    }
+
+
+
+    const point =
+
+        imageToCanvas(
+
+            landmark
+
+        );
+
+
+
+    context.beginPath();
+
+
+
+    context.arc(
+
+        point.x,
+
+        point.y,
+
+        CONFIG.LANDMARK_RADIUS,
+
+        0,
+
+        Math.PI * 2
+
+    );
+
+
+
+    context.fillStyle =
+
+        index === state.selectedLandmark
+
+            ? CONFIG.LANDMARK_SELECTED_COLOR
+
+            : CONFIG.LANDMARK_COLOR;
+
+
+
+    context.fill();
+
+
+
+    context.lineWidth =
+
+        CONFIG.LANDMARK_BORDER_WIDTH;
+
+
+
+    context.strokeStyle =
+
+        CONFIG.LANDMARK_BORDER_COLOR;
+
+
+
+    context.stroke();
+
+
+
+    drawLandmarkLabel(
+
+        index,
+
+        point
+
+    );
+
+}
+
+
+
+/* ==========================================================
+ * LANDMARK LABEL
+ * ========================================================== */
+
+function drawLandmarkLabel(
+
+    index,
+
+    point
+
+) {
+
+    context.save();
+
+
+
+    context.font =
+
+        "14px Sarabun";
+
+
+
+    context.fillStyle =
+
+        "#000000";
+
+
+
+    context.fillText(
+
+        index,
+
+        point.x + 12,
+
+        point.y - 12
+
+    );
+
+
+
+    context.restore();
+
+}
+
+
+
+/* ==========================================================
+ * MOVE ALL LANDMARKS
+ * ========================================================== */
+
+function clearLandmarks() {
+
+    state.landmarks = [];
+
+    state.selectedLandmark = -1;
+
+}
+
+
+
+/* ==========================================================
+ * FUTURE
+ * ========================================================== */
+
+async function runPoseEstimation() {
+
+    /*
+
+    Future implementation
+
+    const result =
+
+        await detector.estimatePoses(image);
+
+    state.landmarks =
+
+        result.keypoints;
+
+    redrawCanvas();
+
+    */
+
+}
+
+
+
+/* ==========================================================
+ * ANGLES
+ * ========================================================== */
+
+function calculateAngles() {
+
+    /*
+
+    Next milestone.
+
+    */
+
+}
+
+
+
+/* ==========================================================
+ * OWAS
+ * ========================================================== */
+
+function calculateOWAS() {
+
+    /*
+
+    Next milestone.
+
+    */
+
+}
+
+
+
+/* ==========================================================
+ * EXPORT
+ * ========================================================== */
+
+function exportPDF() {
+
+    /*
+
+    Future milestone.
+
+    */
+
+}
+
+
+
+/* ==========================================================
+ * END
+ * ========================================================== */
