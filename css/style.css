@@ -290,7 +290,7 @@ ol {
 
     display: grid;
 
-    grid-template-columns: 25% 60% 15%;
+    grid-template-columns: 25% 50% 25%;
 
     border: var(--border-width) solid var(--border-color);
 
